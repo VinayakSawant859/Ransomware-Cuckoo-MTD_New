@@ -1,0 +1,1 @@
+Suspicious file found: test_data/sanika.locked (Extension: .locked)

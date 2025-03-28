@@ -1,0 +1,16 @@
+=== Ransomware Detection and Prevention Summary ===
+
+Report Generated: 2025-03-27 11:00:03
+
+Detection Summary:
+- Last scan completed successfully
+
+Detected Suspicious Files:
+- Suspicious file found: test_data/sanika.locked (Extension: .locked) -> routed to suspicious_mtd
+
+Prevention Summary:
+- Moving Target Defense active
+- Critical files protected
+- System monitoring enabled
+
+Status: System Protected

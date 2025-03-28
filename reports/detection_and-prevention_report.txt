@@ -1,0 +1,46 @@
+=== Detailed Ransomware Detection and Prevention Report ===
+
+Report Generated: 2025-03-27 15:49:21
+
+Detection Results:
+Severity Level: Mild
+
+Behavioral Analysis:
+Status: No Ransomware Detected
+Result: ✓ Passed
+
+File System Analysis:
+Status: Ransomware Detected
+Result: ❌ Failed
+
+Net Traffic Analysis:
+Status: Ransomware Detected
+Result: ❌ Failed
+
+Registry Analysis:
+Status: No Ransomware Detected
+Result: ✓ Passed
+
+Process Analysis:
+Status: No Ransomware Detected
+Result: ✓ Passed
+
+API Analysis:
+Status: No Ransomware Detected
+Result: ✓ Passed
+
+Static Analysis:
+Status: No Ransomware Detected
+Result: ✓ Passed
+
+Suspicious Files:
+- Suspicious file found: test_data/sanika.locked (Extension: .locked)
+
+Prevention Status:
+- Moving Target Defense: Active
+- System Monitoring: Enabled
+- Critical Files: Protected
+
+No MTD actions recorded
+
+System Status: WARNING - Monitor closely
