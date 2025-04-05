@@ -6,6 +6,7 @@ from PyQt5.QtGui import QFont, QPixmap, QColor
 from config.firebase_config import firebase_auth
 from .signup import SignupWindow
 from utils.firebase_auth import FirebaseAuth
+from .admin_update import AdminUpdateWindow  # Import the new admin update window
 
 class LoginWindow(QMainWindow):
     # Define signals for communication
@@ -16,6 +17,7 @@ class LoginWindow(QMainWindow):
         super().__init__()
         self.role = role
         self.signup_window = None
+        self.admin_update_window = None  # Add reference for admin update window
         self.firebase_auth = FirebaseAuth()
         # Initialize input fields
         self.email_input = QLineEdit()
@@ -159,13 +161,20 @@ class LoginWindow(QMainWindow):
         # Add content container to main layout
         layout.addWidget(content_container)
 
-        # Create account link
-        signup_link = QLabel("Don't have an account? <a href='#'>Sign up now</a>")
+        # Create account or update admin link
+        if self.role.lower() == 'admin':
+            signup_link = QLabel("Need to update admin credentials? <a href='#'>Update now</a>")
+        else:
+            signup_link = QLabel("Don't have an account? <a href='#'>Sign up now</a>")
+            
         signup_link.setFont(QFont('Helvetica', 11))
         signup_link.setStyleSheet("color: #666666;")
         signup_link.setAlignment(Qt.AlignCenter)
         signup_link.setOpenExternalLinks(False)
-        signup_link.linkActivated.connect(self.show_signup)
+        if self.role.lower() == 'admin':
+            signup_link.linkActivated.connect(self.show_admin_update)
+        else:
+            signup_link.linkActivated.connect(self.show_signup)
         layout.addWidget(signup_link)
 
         # Back button
@@ -251,6 +260,14 @@ class LoginWindow(QMainWindow):
         self.signup_window.show()
         self.hide()
     
+    def show_admin_update(self):
+        """Show admin update window"""
+        self.admin_update_window = AdminUpdateWindow()
+        self.admin_update_window.update_successful.connect(self.on_admin_update_success)
+        self.admin_update_window.update_cancelled.connect(self.on_admin_update_cancelled)
+        self.admin_update_window.show()
+        self.hide()
+    
     def on_signup_success(self, email, role):
         """Handle successful signup"""
         # Pre-fill the email field
@@ -266,6 +283,23 @@ class LoginWindow(QMainWindow):
     
     def on_signup_cancelled(self):
         """Handle signup cancellation"""
+        self.show()
+    
+    def on_admin_update_success(self, email):
+        """Handle successful admin credentials update"""
+        # Pre-fill the email field
+        self.email_input.setText(email)
+        self.show()
+        
+        # Show success message
+        QMessageBox.information(
+            self,
+            "Admin Credentials Updated",
+            "Your admin credentials have been updated successfully!\n\nPlease login with your new credentials."
+        )
+    
+    def on_admin_update_cancelled(self):
+        """Handle admin update cancellation"""
         self.show()
     
     def closeEvent(self, event):

@@ -3,6 +3,8 @@ import shutil
 import time
 import random
 import glob
+from pathlib import Path
+from utils.file_hopper import get_file_hopper
 
 def rotate_file_paths():
     try:
@@ -18,7 +20,7 @@ def rotate_file_paths():
         
         # Reset or verify log files
         os.makedirs('prevention', exist_ok=True)
-        log_files = ['prevention/mtd_routes.txt', 'prevention/suspicious_transfers.txt', 'prevention/quarantine_log.txt']
+        log_files = ['prevention/mtd_routes.txt', 'prevention/suspicious_transfers.txt', 'prevention/quarantine_log.txt', 'prevention/file_hops.txt']
         for log_file in log_files:
             if not os.path.exists(log_file):
                 with open(log_file, 'w', encoding='utf-8') as f:
@@ -69,7 +71,15 @@ def rotate_file_paths():
                     timestamp = time.strftime("%Y%m%d_%H%M%S")
                     random_suffix = ''.join(random.choices('0123456789', k=4))
                     new_filename = f"quarantined_{timestamp}_{file}"  # Changed filename format
-                    destination_path = os.path.join(destination_dir, new_filename)
+                    
+                    # Let's see if we should put this in the main directory or in a hop subdirectory
+                    file_hopper = get_file_hopper()
+                    # Choose a random hop location if available
+                    if file_hopper and file_hopper.hop_locations and len(file_hopper.hop_locations) > 1:
+                        hop_location = random.choice(file_hopper.hop_locations)
+                        destination_path = os.path.join(hop_location, new_filename)
+                    else:
+                        destination_path = os.path.join(destination_dir, new_filename)
                     
                     try:
                         shutil.move(source_path, destination_path)
@@ -115,15 +125,37 @@ def scan_directory(directory_path):
                 
                 results.append(file_info)
         
-        # Check for files in quarantine
+        # Check for files in quarantine including in hop subdirectories
+        quarantine_files = []
+        
+        # Check the main safe_mtd directory
         if os.path.exists("safe_mtd"):
-            for file in os.listdir("safe_mtd"):
-                file_path = os.path.join("safe_mtd", file)
-                if os.path.isfile(file_path):
-                    results.append({
-                        'path': file_path,
-                        'status': "Quarantined"
-                    })
+            # Get the file hopper to find all hop locations
+            file_hopper = get_file_hopper()
+            
+            if file_hopper and file_hopper.hop_locations:
+                # Scan all hop locations
+                for location in file_hopper.hop_locations:
+                    if os.path.exists(location) and os.path.isdir(location):
+                        for file in os.listdir(location):
+                            file_path = os.path.join(location, file)
+                            if os.path.isfile(file_path):
+                                quarantine_files.append({
+                                    'path': file_path,
+                                    'status': "Quarantined"
+                                })
+            else:
+                # Just scan the main safe_mtd directory
+                for file in os.listdir("safe_mtd"):
+                    file_path = os.path.join("safe_mtd", file)
+                    if os.path.isfile(file_path):
+                        quarantine_files.append({
+                            'path': file_path,
+                            'status': "Quarantined"
+                        })
+        
+        # Extend results with quarantine files
+        results.extend(quarantine_files)
         
         return results
     except Exception as e:

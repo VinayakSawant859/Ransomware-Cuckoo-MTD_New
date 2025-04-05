@@ -232,3 +232,162 @@ class FirebaseAuth:
                     self.auth_token_expiry = expiry
             except:
                 pass
+
+    def update_email(self, current_email, current_password, new_email):
+        """Update a user's email address"""
+        try:
+            # First verify credentials
+            verify_result = self.sign_in(current_email, current_password)
+            if not verify_result["success"]:
+                return {"success": False, "message": "Authentication failed. Please check your current email and password."}
+            
+            # Check connection
+            if not self._check_connection():
+                return {"success": False, "message": "Internet connection is required to update email."}
+            
+            # Get ID token for authentication
+            token_url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={self.api_key}"
+            token_payload = {
+                "email": current_email,
+                "password": current_password,
+                "returnSecureToken": True
+            }
+            
+            token_response = requests.post(token_url, data=json.dumps(token_payload))
+            token_data = token_response.json()
+            
+            if 'error' in token_data:
+                return {"success": False, "message": token_data['error']['message']}
+            
+            id_token = token_data['idToken']
+            
+            # Update email with the token
+            update_url = f"https://identitytoolkit.googleapis.com/v1/accounts:update?key={self.api_key}"
+            update_payload = {
+                "idToken": id_token,
+                "email": new_email,
+                "returnSecureToken": True
+            }
+            
+            update_response = requests.post(update_url, data=json.dumps(update_payload))
+            update_data = update_response.json()
+            
+            if 'error' in update_data:
+                return {"success": False, "message": update_data['error']['message']}
+            
+            # Update locally stored role information
+            user_role = self.get_user_role(current_email)
+            self._update_user_email(current_email, new_email, user_role)
+            
+            return {"success": True, "email": new_email}
+            
+        except Exception as e:
+            return {"success": False, "message": f"An error occurred: {str(e)}"}
+    
+    def update_password(self, email, current_password, new_password):
+        """Update a user's password"""
+        try:
+            # First verify credentials
+            verify_result = self.sign_in(email, current_password)
+            if not verify_result["success"]:
+                return {"success": False, "message": "Authentication failed. Please check your current email and password."}
+            
+            # Check connection
+            if not self._check_connection():
+                return {"success": False, "message": "Internet connection is required to update password."}
+            
+            # Get ID token for authentication
+            token_url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={self.api_key}"
+            token_payload = {
+                "email": email,
+                "password": current_password,
+                "returnSecureToken": True
+            }
+            
+            token_response = requests.post(token_url, data=json.dumps(token_payload))
+            token_data = token_response.json()
+            
+            if 'error' in token_data:
+                return {"success": False, "message": token_data['error']['message']}
+            
+            id_token = token_data['idToken']
+            
+            # Update password with the token
+            update_url = f"https://identitytoolkit.googleapis.com/v1/accounts:update?key={self.api_key}"
+            update_payload = {
+                "idToken": id_token,
+                "password": new_password,
+                "returnSecureToken": True
+            }
+            
+            update_response = requests.post(update_url, data=json.dumps(update_payload))
+            update_data = update_response.json()
+            
+            if 'error' in update_data:
+                return {"success": False, "message": update_data['error']['message']}
+            
+            # Update local storage if we're using offline mode
+            if os.path.exists(self.credentials_file):
+                try:
+                    with open(self.credentials_file, 'r') as f:
+                        credentials = json.load(f)
+                    
+                    # Update password if user exists
+                    for user in credentials.get('users', []):
+                        if user.get('email') == email:
+                            user['password'] = new_password
+                            
+                    with open(self.credentials_file, 'w') as f:
+                        json.dump(credentials, f)
+                except:
+                    pass  # Ignore errors with local storage
+            
+            return {"success": True}
+            
+        except Exception as e:
+            return {"success": False, "message": f"An error occurred: {str(e)}"}
+            
+    def _check_connection(self):
+        """Check if we have an internet connection to Firebase"""
+        try:
+            # Make a lightweight request to check connectivity
+            response = requests.head(f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={self.api_key}", timeout=3)
+            return True
+        except:
+            return False
+            
+    def _update_user_email(self, old_email, new_email, role):
+        """Update email in local role storage after email change"""
+        roles_file = os.path.join(os.path.expanduser("~"), ".ransomware_app", "roles.json")
+        
+        try:
+            if os.path.exists(roles_file):
+                with open(roles_file, 'r') as f:
+                    roles = json.load(f)
+                    
+                # Remove old email and add new one
+                if old_email in roles:
+                    del roles[old_email]
+                    
+                roles[new_email] = role
+                    
+                # Save updated roles
+                with open(roles_file, 'w') as f:
+                    json.dump(roles, f)
+                    
+            # Also update in offline credentials if they exist
+            if os.path.exists(self.credentials_file):
+                with open(self.credentials_file, 'r') as f:
+                    credentials = json.load(f)
+                    
+                # Update email in users list
+                for user in credentials.get('users', []):
+                    if user.get('email') == old_email:
+                        user['email'] = new_email
+                        
+                # Save updated credentials
+                with open(self.credentials_file, 'w') as f:
+                    json.dump(credentials, f)
+                    
+        except Exception as e:
+            print(f"Failed to update user email: {e}")

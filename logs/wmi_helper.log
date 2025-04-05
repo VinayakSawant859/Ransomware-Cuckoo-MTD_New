@@ -4487,3 +4487,1151 @@
 2025-04-04 14:56:19,902 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
 2025-04-04 14:56:19,902 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
 2025-04-04 14:56:19,902 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:41:20,756 - FileHopper - INFO - Initialized 5 hop locations
+2025-04-05 11:41:20,875 - PeriodicScan - INFO - Periodic scan thread started
+2025-04-05 11:41:20,882 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:41:20
+2025-04-05 11:41:20,883 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:41:20,883 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:41:20,884 - PeriodicScan - DEBUG - Found 1 files in test_data
+2025-04-05 11:41:20,884 - PeriodicScan - INFO - Found total of 1 files to scan
+2025-04-05 11:41:20,884 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:41:20,885 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:41:20,886 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:41:20,887 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:41:20,888 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:41:20,889 - PeriodicScan - INFO - Found suspicious file with pattern test_data\**/*.crypt: test_data\test2.crypt
+2025-04-05 11:41:20,889 - PeriodicScan - INFO - Processing suspicious file: test_data\test2.crypt with extension .crypt
+2025-04-05 11:41:20,889 - PeriodicScan - INFO - Copied suspicious file to suspicious_mtd\test2.crypt
+2025-04-05 11:41:20,910 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:41:20,912 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:41:20,913 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:41:20,914 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:41:20,916 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:41:20,917 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:41:20,919 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:41:20,919 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:41:20,928 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:41:20,928 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:41:20,929 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:41:20,930 - PeriodicScan - INFO - Scan completed. Found 1 suspicious files out of 1 total files
+2025-04-05 11:41:20,930 - PeriodicScan - INFO - Threat level determined to be: Moderate
+2025-04-05 11:41:20,939 - PeriodicScan - INFO - Adding 1 suspicious files to scan history
+2025-04-05 11:41:30,951 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:41:30
+2025-04-05 11:41:30,951 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:41:30,951 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:41:30,951 - PeriodicScan - DEBUG - Found 1 files in test_data
+2025-04-05 11:41:30,951 - PeriodicScan - INFO - Found total of 1 files to scan
+2025-04-05 11:41:30,951 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:41:30,951 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:41:30,951 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:41:30,951 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:41:30,951 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:41:30,967 - PeriodicScan - INFO - Found suspicious file with pattern test_data\**/*.crypt: test_data\test2.crypt
+2025-04-05 11:41:30,967 - PeriodicScan - INFO - Processing suspicious file: test_data\test2.crypt with extension .crypt
+2025-04-05 11:41:30,967 - PeriodicScan - INFO - Copied suspicious file to suspicious_mtd\test2.crypt
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:41:30,967 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:41:30,967 - PeriodicScan - INFO - Scan completed. Found 1 suspicious files out of 1 total files
+2025-04-05 11:41:30,967 - PeriodicScan - INFO - Threat level determined to be: Moderate
+2025-04-05 11:41:30,983 - PeriodicScan - INFO - Adding 1 suspicious files to scan history
+2025-04-05 11:41:31,990 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:41:31
+2025-04-05 11:41:31,990 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:41:31,990 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:41:31,990 - PeriodicScan - DEBUG - Found 1 files in test_data
+2025-04-05 11:41:31,990 - PeriodicScan - INFO - Found total of 1 files to scan
+2025-04-05 11:41:31,990 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:41:31,990 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:41:31,990 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:41:31,990 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:41:31,999 - PeriodicScan - INFO - Found suspicious file with pattern test_data\**/*.crypt: test_data\test2.crypt
+2025-04-05 11:41:31,999 - PeriodicScan - INFO - Processing suspicious file: test_data\test2.crypt with extension .crypt
+2025-04-05 11:41:31,999 - PeriodicScan - INFO - Copied suspicious file to suspicious_mtd\test2.crypt
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:41:31,999 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:41:32,014 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:41:32,014 - PeriodicScan - INFO - Scan completed. Found 1 suspicious files out of 1 total files
+2025-04-05 11:41:32,014 - PeriodicScan - INFO - Threat level determined to be: Moderate
+2025-04-05 11:41:32,030 - PeriodicScan - INFO - Adding 1 suspicious files to scan history
+2025-04-05 11:41:41,045 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:41:41
+2025-04-05 11:41:41,045 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:41:41,045 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Found 1 files in test_data
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Found total of 1 files to scan
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Found suspicious file with pattern test_data\**/*.crypt: test_data\test2.crypt
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Processing suspicious file: test_data\test2.crypt with extension .crypt
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Copied suspicious file to suspicious_mtd\test2.crypt
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:41:41,049 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Scan completed. Found 1 suspicious files out of 1 total files
+2025-04-05 11:41:41,049 - PeriodicScan - INFO - Threat level determined to be: Moderate
+2025-04-05 11:41:41,080 - PeriodicScan - INFO - Adding 1 suspicious files to scan history
+2025-04-05 11:41:50,444 - FileHopper - INFO - Starting file hopper with interval of 60 seconds
+2025-04-05 11:41:50,444 - FileHopper - INFO - Found 2 files to hop
+2025-04-05 11:41:50,444 - FileHopper - INFO - Hopped quarantined_20250404_144409_test1.locked from safe_mtd to safe_mtd\hop_1_rzlx29
+2025-04-05 11:41:50,444 - FileHopper - INFO - Hopped quarantined_20250405_114143_test2.crypt from safe_mtd\hop_2_om8xcw to safe_mtd\hop_3_j3inhj
+2025-04-05 11:41:50,444 - FileHopper - INFO - Completed hopping 2 files
+2025-04-05 11:41:51,095 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:41:51
+2025-04-05 11:41:51,095 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:41:51,095 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:41:51,095 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:41:51,100 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:41:51,100 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:41:51,100 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:41:51,100 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:41:51,100 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:01,133 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:01
+2025-04-05 11:42:01,133 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:01,133 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:01,133 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:01,133 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:01,133 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:01,149 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:01,149 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:01,149 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:01,149 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:01,149 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:01,149 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:01,149 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:11,175 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:11
+2025-04-05 11:42:11,175 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:11,175 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:11,175 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:11,175 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:11,175 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:11,190 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:11,190 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:11,190 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:21,222 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:21
+2025-04-05 11:42:21,222 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:21,222 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:21,222 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:21,222 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:21,222 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:21,235 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:21,235 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:21,235 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:21,235 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:21,235 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:21,235 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:31,230 - FileHopper - INFO - Stopping file hopper
+2025-04-05 11:42:31,261 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:31
+2025-04-05 11:42:31,261 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:31,261 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:31,261 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:31,261 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:31,261 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:31,261 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:31,261 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:31,261 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:31,276 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:31,276 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:31,276 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:41,332 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:41
+2025-04-05 11:42:41,332 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:41,333 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:41,334 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:41,334 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:41,335 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:41,336 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:41,337 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:41,338 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:41,339 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:41,340 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:41,340 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:41,341 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:41,342 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:41,344 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:41,347 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:41,347 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:41,348 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:41,349 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:41,349 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:41,350 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:41,351 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:41,352 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:42:51,389 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:42:51
+2025-04-05 11:42:51,389 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:42:51,389 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:42:51,389 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:42:51,389 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:42:51,389 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:42:51,403 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:42:51,403 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:42:51,403 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:01,454 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:01
+2025-04-05 11:43:01,454 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:01,454 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:01,454 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:01,454 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:01,454 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:01,454 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:01,454 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:01,466 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:01,466 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:01,467 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:01,468 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:01,468 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:01,469 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:01,469 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:01,470 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:01,471 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:01,472 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:01,472 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:01,473 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:01,473 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:01,474 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:01,475 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:11,504 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:11
+2025-04-05 11:43:11,504 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:11,510 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:11,510 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:11,510 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:11,510 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:11,510 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:11,510 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:11,510 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:11,516 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:11,517 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:11,518 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:11,518 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:11,519 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:11,520 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:11,520 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:11,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:11,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:11,522 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:11,522 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:11,523 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:11,524 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:11,524 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:21,553 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:21
+2025-04-05 11:43:21,553 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:21,553 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:21,553 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:21,553 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:21,553 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:21,553 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:21,562 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:21,562 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:21,562 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:21,565 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:21,566 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:21,566 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:21,567 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:21,567 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:21,568 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:21,568 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:21,569 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:21,570 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:21,570 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:21,571 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:21,571 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:21,571 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:31,598 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:31
+2025-04-05 11:43:31,598 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:31,599 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:31,600 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:31,600 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:31,601 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:31,601 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:31,602 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:31,602 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:31,603 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:31,604 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:31,604 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:31,604 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:31,605 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:31,605 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:31,606 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:31,606 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:31,607 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:31,607 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:31,608 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:31,608 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:31,609 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:31,609 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:41,630 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:41
+2025-04-05 11:43:41,630 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:41,630 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:41,630 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:41,630 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:41,630 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:41,630 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:41,638 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:41,639 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:41,640 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:41,641 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:41,642 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:41,642 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:41,642 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:41,643 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:41,643 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:41,644 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:41,645 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:41,646 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:41,646 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:41,646 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:41,646 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:41,646 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:43:51,678 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:43:51
+2025-04-05 11:43:51,678 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:43:51,678 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:43:51,678 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:43:51,678 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:43:51,678 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:43:51,691 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:43:51,694 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:43:51,695 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:43:51,695 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:43:51,696 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:44:01,721 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:44:01
+2025-04-05 11:44:01,721 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:44:01,721 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:44:01,721 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:44:01,721 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:44:01,721 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:44:01,729 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:44:01,729 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:44:01,730 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:44:01,730 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:44:01,731 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:44:01,731 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:44:01,733 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:44:01,733 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:44:01,733 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:44:01,733 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:44:11,767 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:44:11
+2025-04-05 11:44:11,768 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:44:11,769 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:44:11,770 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:44:11,770 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:44:11,771 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:44:11,772 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:44:11,772 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:44:11,773 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:44:11,774 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:44:11,774 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:44:11,775 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:44:11,775 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:44:11,776 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:44:11,776 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:44:11,777 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:44:11,777 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:44:11,777 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:44:11,778 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:44:11,778 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:44:11,779 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:44:11,780 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:44:11,780 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:44:21,807 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:44:21
+2025-04-05 11:44:21,807 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:44:21,807 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:44:21,807 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:44:21,807 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:44:21,807 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:44:21,807 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:44:21,807 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:44:21,807 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:44:21,816 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:44:21,817 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:44:21,817 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:44:21,818 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:44:21,818 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:44:21,819 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:44:21,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:44:21,821 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:44:21,821 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:44:21,822 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:44:21,822 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:44:21,823 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:44:21,823 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:44:21,823 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:44:31,849 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:44:31
+2025-04-05 11:44:31,849 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:44:31,849 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:44:31,849 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:44:31,849 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:44:31,849 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:44:31,849 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:44:31,849 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:44:31,849 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:44:31,859 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:44:31,859 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:44:31,860 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:44:31,861 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:44:31,861 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:44:31,862 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:44:31,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:44:31,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:44:31,864 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:44:31,864 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:44:31,864 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:44:31,865 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:44:31,866 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:44:31,866 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:44:41,893 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:44:41
+2025-04-05 11:44:41,893 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:44:41,893 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:44:41,893 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:44:41,893 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:44:41,893 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:44:41,904 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:44:41,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:44:41,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:44:41,906 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:44:41,906 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:44:41,907 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:44:41,907 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:44:41,908 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:44:41,909 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:44:41,909 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:50:28,566 - FileHopper - INFO - Initialized 5 hop locations
+2025-04-05 11:50:28,671 - PeriodicScan - INFO - Periodic scan thread started
+2025-04-05 11:50:28,677 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:50:28
+2025-04-05 11:50:28,678 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:50:28,678 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:50:28,679 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:50:28,680 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:50:28,680 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:50:28,681 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:50:28,681 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:50:28,683 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:50:28,683 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:50:28,684 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:50:28,684 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:50:28,685 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:50:28,686 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:50:28,686 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:50:28,687 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:50:28,687 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:50:28,690 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:50:28,704 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:50:28,706 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:50:28,708 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:50:28,708 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:50:28,708 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:50:38
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:50:38,756 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:50:38,756 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:50:48,797 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:50:48
+2025-04-05 11:50:48,797 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:50:48,797 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:50:48,797 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:50:48,797 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:50:48,797 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:50:48,808 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:50:48,808 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:50:48,808 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:50:58,844 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:50:58
+2025-04-05 11:50:58,844 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:50:58,844 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:50:58,844 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:50:58,844 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:50:58,844 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:50:58,844 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:50:58,844 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:50:58,844 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:50:58,855 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:50:58,855 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:50:58,855 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:51:08,889 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:08
+2025-04-05 11:51:08,889 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:08,889 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:08,889 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:51:08,897 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:51:08,897 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:08,897 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:08,897 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:51:08,897 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:51:18,928 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:18
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:18,931 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:51:18,931 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:51:28,968 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:28
+2025-04-05 11:51:28,968 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:28,968 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:28,968 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:51:28,968 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:51:28,968 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:28,968 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:28,973 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:28,973 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:28,973 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:28,973 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:28,973 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:28,976 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:28,977 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:28,977 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:28,978 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:28,978 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:28,979 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:28,979 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:28,980 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:28,981 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:28,982 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:51:28,982 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:39
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:39,008 - PeriodicScan - DEBUG - Found 1 files in test_data
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Found total of 1 files to scan
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:39,008 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:39,008 - PeriodicScan - INFO - Found suspicious file with pattern test_data\**/*.locked: test_data\test3.locked
+2025-04-05 11:51:39,021 - PeriodicScan - INFO - Processing suspicious file: test_data\test3.locked with extension .locked
+2025-04-05 11:51:39,021 - PeriodicScan - INFO - Copied suspicious file to suspicious_mtd\test3.locked
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:39,021 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:39,021 - PeriodicScan - INFO - Scan completed. Found 1 suspicious files out of 1 total files
+2025-04-05 11:51:39,021 - PeriodicScan - INFO - Threat level determined to be: Moderate
+2025-04-05 11:51:39,037 - PeriodicScan - INFO - Adding 1 suspicious files to scan history
+2025-04-05 11:51:49,052 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:49
+2025-04-05 11:51:49,052 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:49,058 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:51:49,058 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:51:49,058 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:49,058 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:49,058 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:51:49,058 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:51:50,032 - FileHopper - INFO - Starting file hopper with interval of 60 seconds
+2025-04-05 11:51:50,032 - FileHopper - INFO - Found 1 files to hop
+2025-04-05 11:51:50,032 - FileHopper - INFO - Hopped quarantined_20250405_115142_test3.locked from safe_mtd\hop_3_6xe26a to safe_mtd\hop_2_yag38p
+2025-04-05 11:51:50,032 - FileHopper - INFO - Completed hopping 1 files
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:51:59
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:51:59,097 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:51:59,097 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:09,135 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:52:09
+2025-04-05 11:52:09,135 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:52:09,135 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:52:09,141 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:52:09,141 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:52:09,141 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:52:09,152 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:52:09,152 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:19,177 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:52:19
+2025-04-05 11:52:19,177 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:52:19,177 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:52:19,177 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:52:19,177 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:52:19,177 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:52:19,191 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:52:19,191 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:52:19,191 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:29,220 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:52:29
+2025-04-05 11:52:29,220 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:52:29,220 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:52:29,220 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:52:29,220 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:52:29,220 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:52:29,230 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:52:29,230 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:52:29,230 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:39,259 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:52:39
+2025-04-05 11:52:39,259 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:52:39,259 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:52:39,259 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:52:39,259 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:52:39,259 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:52:39,272 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:52:39,272 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:52:39,273 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:52:39,273 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:52:39,274 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:52:39,274 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:52:39,274 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:52:39,275 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:52:39,275 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:52:39,276 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:52:39,276 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:49,301 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:52:49
+2025-04-05 11:52:49,307 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:52:49,307 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:52:49,307 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:52:49,307 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:52:49,307 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:52:49,314 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:52:49,315 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:52:49,315 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:52:49,315 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:52:49,316 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:52:49,316 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:52:49,317 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:52:49,317 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:52:49,318 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:52:49,318 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:52:50,046 - FileHopper - INFO - Found 1 files to hop
+2025-04-05 11:52:50,046 - FileHopper - INFO - Hopped quarantined_20250405_115142_test3.locked from safe_mtd\hop_2_yag38p to safe_mtd
+2025-04-05 11:52:50,046 - FileHopper - INFO - Completed hopping 1 files
+2025-04-05 11:53:19,322 - FileHopper - INFO - Initialized 5 hop locations
+2025-04-05 11:53:19,413 - PeriodicScan - INFO - Periodic scan thread started
+2025-04-05 11:53:19,426 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:19
+2025-04-05 11:53:19,428 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:19,429 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:19,431 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:19,431 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:19,433 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:19,433 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:19,434 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:19,436 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:19,436 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:19,436 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:19,438 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:19,439 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:19,439 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:19,440 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:19,441 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:19,442 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:19,443 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:19,443 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:19,455 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:19,455 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:19,460 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:19,460 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:53:29,478 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:29
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:29,484 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:29,484 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:53:30,521 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:30
+2025-04-05 11:53:30,521 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:30,521 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:30,521 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:30,521 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:30,521 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:30,532 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:30,532 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:30,532 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:53:39,571 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:39
+2025-04-05 11:53:39,571 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:39,571 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:39,571 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:39,571 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:39,579 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:39,579 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:39,579 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:39,579 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:53:49,623 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:49
+2025-04-05 11:53:49,623 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:49,623 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:49,623 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:49,623 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:49,623 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:49,623 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:49,623 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:49,633 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:49,633 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:49,633 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:53:59,668 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:53:59
+2025-04-05 11:53:59,668 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:53:59,668 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:53:59,668 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:53:59,668 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:53:59,668 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:53:59,680 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:53:59,680 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:53:59,680 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:54:09,714 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:54:09
+2025-04-05 11:54:09,714 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:54:09,714 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:54:09,714 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:54:09,714 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:54:09,714 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:54:09,727 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:54:09,727 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:54:09,727 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:54:19,759 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:54:19
+2025-04-05 11:54:19,759 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:54:19,759 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:54:19,759 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:54:19,759 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:54:19,759 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:54:19,767 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:54:19,767 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:54:19,767 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:54:27,092 - FileHopper - INFO - Starting file hopper with interval of 60 seconds
+2025-04-05 11:54:27,092 - FileHopper - INFO - Found 1 files to hop
+2025-04-05 11:54:27,092 - FileHopper - INFO - Hopped quarantined_20250405_115142_test3.locked from safe_mtd to safe_mtd\hop_1_5uttfg
+2025-04-05 11:54:27,092 - FileHopper - INFO - Completed hopping 1 files
+2025-04-05 11:54:29,809 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:54:29
+2025-04-05 11:54:29,809 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:54:29,809 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:54:29,809 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:54:29,809 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:54:29,809 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:54:29,820 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:54:29,820 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:54:29,820 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:54:39,860 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:54:39
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:54:39,863 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:54:39,863 - PeriodicScan - INFO - Threat level determined to be: Normal
+2025-04-05 11:54:43,038 - FileHopper - INFO - Stopping file hopper
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Starting scheduled scan at 2025-04-05 11:54:49
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Performing periodic scan
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Scanning directories: ['test_data']
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Found 0 files in test_data
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Found total of 0 files to scan
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Scanning directory: test_data
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locked
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypted
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypto
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypt
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypted
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.crypz
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.encrypt
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.enc
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.ezz
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.exx
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.wncry
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.locky
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.kraken
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.cerber
+2025-04-05 11:54:49,905 - PeriodicScan - DEBUG - Searching for pattern: test_data\**/*.zzz
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Scan completed. Found 0 suspicious files out of 0 total files
+2025-04-05 11:54:49,905 - PeriodicScan - INFO - Threat level determined to be: Normal

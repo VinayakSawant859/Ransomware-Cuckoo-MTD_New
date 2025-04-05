@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
                            QLabel, QFrame, QTableWidget, QTableWidgetItem, QHeaderView,
-                           QMessageBox, QProgressBar, QTabWidget, QFileDialog, QDialog, QPlainTextEdit)
+                           QMessageBox, QProgressBar, QTabWidget, QFileDialog, QDialog, QPlainTextEdit,
+                           QSplitter, QCheckBox, QSpinBox, QGroupBox, QScrollArea)
 from PyQt5.QtCore import Qt, QTimer, QSize
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QColor
 import os
@@ -11,10 +12,14 @@ import shutil
 # Use system path to import utils module
 sys.path.append("D:/Movies/Sanika/Ransomware Cuckoo-MTD_New/Ransomware Cuckoo-MTD_New")
 from utils.file_operations import rotate_file_paths, scan_directory
+from utils.file_hopper import get_file_hopper
 
 class PreventionTab(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        # Initialize file hopper
+        self.file_hopper = get_file_hopper()
+        self.file_hopper.hop_interval = 60  # Set default hop interval to 60 seconds
         self.initUI()
         
     def initUI(self):
@@ -305,6 +310,36 @@ class PreventionTab(QWidget):
         info.setAlignment(Qt.AlignCenter)
         layout.addWidget(info)
         
+        # Create tabs for different quarantine views
+        quarantine_tabs = QTabWidget()
+        quarantine_tabs.setStyleSheet("""
+            QTabWidget::pane {
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+                background: white;
+            }
+            QTabBar::tab {
+                background: #f0f0f0;
+                color: #333333;
+                padding: 8px 20px;
+                margin: 1px;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+            QTabBar::tab:selected {
+                background: #2196F3;
+                color: white;
+            }
+            QTabBar::tab:hover:!selected {
+                background: #64B5F6;
+                color: white;
+            }
+        """)
+        
+        # Create main quarantine tab
+        quarantine_files_tab = QWidget()
+        quarantine_files_layout = QVBoxLayout(quarantine_files_tab)
+        
         # Quarantine table
         self.quarantine_table = QTableWidget()
         self.quarantine_table.setColumnCount(4)
@@ -327,13 +362,200 @@ class PreventionTab(QWidget):
                 font-weight: bold;
             }
         """)
-        layout.addWidget(self.quarantine_table)
+        quarantine_files_layout.addWidget(self.quarantine_table)
+        
+        # Create hopping logs tab
+        hopping_logs_tab = QWidget()
+        hopping_logs_layout = QVBoxLayout(hopping_logs_tab)
+        
+        # Hopping control frame
+        hopping_control_frame = QFrame()
+        hopping_control_frame.setStyleSheet("background-color: #f8f9fa; border-radius: 8px; padding: 10px;")
+        hopping_control_layout = QHBoxLayout(hopping_control_frame)
+        
+        # Add hopping controls
+        hop_interval_label = QLabel("Hop Interval (seconds):")
+        hop_interval_label.setFont(QFont("Helvetica", 10))
+        hopping_control_layout.addWidget(hop_interval_label)
+        
+        self.hop_interval_spinner = QSpinBox()
+        self.hop_interval_spinner.setRange(10, 3600)
+        self.hop_interval_spinner.setValue(self.file_hopper.hop_interval)
+        self.hop_interval_spinner.setFixedWidth(100)
+        self.hop_interval_spinner.valueChanged.connect(self.update_hop_interval)
+        hopping_control_layout.addWidget(self.hop_interval_spinner)
+        
+        # Add toggle button
+        self.hopping_toggle_btn = QPushButton("Start File Hopping")
+        self.hopping_toggle_btn.setCheckable(True)
+        self.hopping_toggle_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                border-radius: 5px;
+                padding: 8px 16px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+            QPushButton:checked {
+                background-color: #F44336;
+            }
+            QPushButton:checked:hover {
+                background-color: #D32F2F;
+            }
+        """)
+        self.hopping_toggle_btn.clicked.connect(self.toggle_file_hopping)
+        hopping_control_layout.addWidget(self.hopping_toggle_btn)
+        
+        # Add spacer
+        hopping_control_layout.addStretch()
+        
+        # Add refresh button
+        refresh_logs_btn = QPushButton("Refresh Logs")
+        refresh_logs_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+                padding: 8px 16px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #388E3C;
+            }
+        """)
+        refresh_logs_btn.clicked.connect(self.refresh_hopping_logs)
+        hopping_control_layout.addWidget(refresh_logs_btn)
+        
+        hopping_logs_layout.addWidget(hopping_control_frame)
+        
+        # Hopping status label
+        self.hopping_status = QLabel("File hopping is inactive")
+        self.hopping_status.setFont(QFont("Helvetica", 11))
+        self.hopping_status.setStyleSheet("color: #555555; padding: 10px;")
+        self.hopping_status.setAlignment(Qt.AlignCenter)
+        hopping_logs_layout.addWidget(self.hopping_status)
+        
+        # Hopping logs table
+        self.hopping_logs_table = QTableWidget()
+        self.hopping_logs_table.setColumnCount(4)
+        self.hopping_logs_table.setHorizontalHeaderLabels(["Timestamp", "Filename", "Source", "Destination"])
+        self.hopping_logs_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.hopping_logs_table.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
+        self.hopping_logs_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
+        self.hopping_logs_table.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.hopping_logs_table.setAlternatingRowColors(True)
+        self.hopping_logs_table.setStyleSheet("""
+            QTableWidget {
+                gridline-color: #e0e0e0;
+                background-color: white;
+                alternate-background-color: #f9f9f9;
+            }
+            QHeaderView::section {
+                background-color: #f0f0f0;
+                padding: 5px;
+                border: 1px solid #e0e0e0;
+                font-weight: bold;
+            }
+        """)
+        hopping_logs_layout.addWidget(self.hopping_logs_table)
+        
+        # Add tabs to quarantine tabs
+        quarantine_tabs.addTab(quarantine_files_tab, "Quarantined Files")
+        quarantine_tabs.addTab(hopping_logs_tab, "File Hopping Logs")
+        
+        layout.addWidget(quarantine_tabs)
         
         # Load quarantine data
         self.load_quarantine_data()
         
-        return tab
+        # Load hopping logs
+        self.load_hopping_logs()
         
+        return tab
+    
+    def update_hop_interval(self, value):
+        """Update the hop interval for the file hopper"""
+        self.file_hopper.hop_interval = value
+        if self.file_hopper.running:
+            # Show a message that the new interval will be applied on next hop
+            status_msg = f"Hop interval updated to {value} seconds (applied on next hop)"
+            self.hopping_status.setText(status_msg)
+    
+    def toggle_file_hopping(self, checked):
+        """Toggle file hopping on/off"""
+        if checked:
+            # Start file hopping
+            if self.file_hopper.start():
+                self.hopping_toggle_btn.setText("Stop File Hopping")
+                self.hopping_status.setText(f"File hopping is active (every {self.file_hopper.hop_interval} seconds)")
+                self.hopping_status.setStyleSheet("color: #4CAF50; padding: 10px; font-weight: bold;")
+            else:
+                self.hopping_toggle_btn.setChecked(False)
+                QMessageBox.warning(self, "Warning", "Could not start file hopping. See logs for details.")
+        else:
+            # Stop file hopping
+            if self.file_hopper.stop():
+                self.hopping_toggle_btn.setText("Start File Hopping")
+                self.hopping_status.setText("File hopping is inactive")
+                self.hopping_status.setStyleSheet("color: #555555; padding: 10px;")
+            else:
+                QMessageBox.warning(self, "Warning", "Could not stop file hopping. See logs for details.")
+    
+    def load_hopping_logs(self):
+        """Load file hopping logs into the table"""
+        self.hopping_logs_table.setRowCount(0)
+        
+        # Load from hop history
+        hop_history = self.file_hopper.get_hop_history()
+        
+        # Also load from file if available
+        if os.path.exists('prevention/file_hops.txt'):
+            try:
+                with open('prevention/file_hops.txt', 'r', encoding='utf-8') as f:
+                    for line in f:
+                        if '->' in line and '@' in line:
+                            file_path_part, timestamp_part = line.strip().split('@')
+                            source, dest = file_path_part.strip().split('->')
+                            hop_history.append({
+                                'timestamp': timestamp_part.strip(),
+                                'file': os.path.basename(dest.strip()),
+                                'source': source.strip(),
+                                'destination': dest.strip()
+                            })
+            except Exception as e:
+                print(f"Error loading hop logs from file: {str(e)}")
+        
+        # Sort by timestamp (newest first)
+        hop_history.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+        
+        # Add to table
+        row = 0
+        for hop in hop_history:
+            self.hopping_logs_table.insertRow(row)
+            
+            # Add data
+            self.hopping_logs_table.setItem(row, 0, QTableWidgetItem(hop.get('timestamp', '')))
+            self.hopping_logs_table.setItem(row, 1, QTableWidgetItem(hop.get('file', '')))
+            self.hopping_logs_table.setItem(row, 2, QTableWidgetItem(hop.get('source', '')))
+            self.hopping_logs_table.setItem(row, 3, QTableWidgetItem(hop.get('destination', '')))
+            
+            row += 1
+    
+    def refresh_hopping_logs(self):
+        """Refresh the hopping logs table"""
+        self.load_hopping_logs()
+        self.hopping_status.setText(
+            f"File hopping is {'active' if self.file_hopper.running else 'inactive'}" + 
+            (f" (every {self.file_hopper.hop_interval} seconds)" if self.file_hopper.running else "")
+        )
+        self.hopping_status.setStyleSheet(
+            f"color: {'#4CAF50' if self.file_hopper.running else '#555555'}; padding: 10px;" + 
+            (f"font-weight: bold;" if self.file_hopper.running else "")
+        )
+    
     def scan_directories(self):
         self.status_bar.setText("Scanning directory: test_data/")  # Added directory path
         self.progress_bar.setValue(10)
@@ -396,7 +618,6 @@ class PreventionTab(QWidget):
         
         try:
             result, moved_files = rotate_file_paths()
-            
             if result:
                 # Group files by their movement stage
                 detected_files = []
@@ -425,9 +646,28 @@ class PreventionTab(QWidget):
                     QMessageBox.information(self, "File Transfers", 
                                           f"Moving Target Defense Results:\n\n{transfer_text}")
                 
+                # Ask user if they want to enable file hopping for secured files
+                if secured_files and not self.file_hopper.running:
+                    reply = QMessageBox.question(
+                        self, 
+                        "Enable File Hopping",
+                        f"Do you want to enable automatic file hopping for the {len(secured_files)} secured files?\n\n"
+                        "This will periodically move files between different locations to prevent attackers from targeting them.",
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.Yes
+                    )
+                    
+                    if reply == QMessageBox.Yes:
+                        self.file_hopper.start()
+                        self.hopping_toggle_btn.setChecked(True)
+                        self.hopping_toggle_btn.setText("Stop File Hopping")
+                        self.hopping_status.setText(f"File hopping is active (every {self.file_hopper.hop_interval} seconds)")
+                        self.hopping_status.setStyleSheet("color: #4CAF50; padding: 10px; font-weight: bold;")
+                
                 # Update tables and refresh data
                 self.load_mtd_history()
                 self.load_quarantine_data()
+                self.load_hopping_logs()
                 if hasattr(self, 'scanned_files'):
                     self.scan_directories()
                 self.refresh_statistics()
