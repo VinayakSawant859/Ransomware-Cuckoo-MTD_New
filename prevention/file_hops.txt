@@ -3,3 +3,9 @@ safe_mtd\hop_2_om8xcw\quarantined_20250405_114143_test2.crypt -> safe_mtd\hop_3_
 safe_mtd\hop_3_6xe26a\quarantined_20250405_115142_test3.locked -> safe_mtd\hop_2_yag38p\quarantined_20250405_115142_test3.locked @ 2025-04-05 11:51:50
 safe_mtd\hop_2_yag38p\quarantined_20250405_115142_test3.locked -> safe_mtd\quarantined_20250405_115142_test3.locked @ 2025-04-05 11:52:50
 safe_mtd\quarantined_20250405_115142_test3.locked -> safe_mtd\hop_1_5uttfg\quarantined_20250405_115142_test3.locked @ 2025-04-05 11:54:27
+safe_mtd\quarantined_1743835022_sanika.encrypt -> safe_mtd\hop_3afe7abc\quarantined_1743835022_sanika.encrypt @ 2025-04-05 12:07:13
+safe_mtd\quarantined_20250404_144409_test1.locked -> safe_mtd\hop_40b5279f\quarantined_20250404_144409_test1.locked @ 2025-04-05 12:07:13
+safe_mtd\hop_0073286e\443667f2_test.locked -> safe_mtd\hop_d3f18cc6\443667f2_test.locked @ 2025-04-05 13:16:01
+safe_mtd\hop_d3f18cc6\443667f2_test.locked -> safe_mtd\hop_391e2deb\443667f2_test.locked @ 2025-04-05 13:17:01
+safe_mtd\hop_391e2deb\12029574_periodic.locked -> safe_mtd\hop_e64abfc9\12029574_periodic.locked @ 2025-04-05 13:18:01
+safe_mtd\hop_391e2deb\443667f2_test.locked -> safe_mtd\hop_0073286e\443667f2_test.locked @ 2025-04-05 13:18:01

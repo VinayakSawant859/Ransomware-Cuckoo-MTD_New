@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Logs and databases
+*.log
+*.sqlite3
+logs/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+new_env/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific - exclude MTD directories
+safe_mtd/
+suspicious_mtd/
+prevention/
+reports/
+
+# File hopper data
+prevention/file_hops.txt
+prevention/mtd_routes.txt
+
+# Cache
+.cache/

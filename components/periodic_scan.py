@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
                            QLabel, QGroupBox, QCheckBox, QComboBox, QSpinBox,
-                           QTextBrowser, QFrame, QScrollArea)
+                           QTextBrowser, QFrame, QScrollArea, QFileDialog, QListWidget)
 from PyQt5.QtCore import Qt, QTimer, QDateTime, QThread, pyqtSignal
-from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtGui import QFont, QColor, QIcon
 import json
 import os
 import time
@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 import traceback
 import sys
+from prevention.moving_target_defense import rotate_file_paths
 
 class PeriodicScanWorker(QThread):
     """Worker thread for performing periodic scans of the system"""
@@ -22,6 +23,7 @@ class PeriodicScanWorker(QThread):
     scan_started = pyqtSignal()
     scan_progress = pyqtSignal(int, str)  # progress percentage, message
     scan_completed = pyqtSignal(dict)  # scan results
+    suspicious_files_found = pyqtSignal(list)  # signal for suspicious files
     
     def __init__(self, config_file="config/schedule_config.json"):
         super().__init__()
@@ -33,6 +35,10 @@ class PeriodicScanWorker(QThread):
             '.crypz', '.encrypt', '.enc', '.ezz', '.exx', '.wncry', 
             '.locky', '.kraken', '.cerber', '.zzz'
         ]
+        self.custom_scan_directories = ["test_data"]  # Default directory
+        
+        # Default to disabled
+        self.enabled = False
         
         # Setup logging
         self.logger = self.setup_logging()
@@ -73,6 +79,10 @@ class PeriodicScanWorker(QThread):
                 self.minutes = config.get('minutes', 0)
                 self.seconds = config.get('seconds', 0)
                 
+                # Load custom directories if available
+                if 'scan_directories' in config:
+                    self.custom_scan_directories = config.get('scan_directories', ["test_data"])
+                
                 # Calculate interval in seconds
                 if self.frequency == 'Custom':
                     self.interval = (self.hours * 3600) + (self.minutes * 60) + self.seconds
@@ -112,7 +122,7 @@ class PeriodicScanWorker(QThread):
             self.minutes = 0
             self.seconds = 0
     
-    def update_config(self, enabled=None, frequency=None, hours=None, minutes=None, seconds=None):
+    def update_config(self, enabled=None, frequency=None, hours=None, minutes=None, seconds=None, scan_directories=None):
         """Update scan configuration"""
         try:
             if enabled is not None:
@@ -125,6 +135,8 @@ class PeriodicScanWorker(QThread):
                 self.minutes = minutes
             if seconds is not None:
                 self.seconds = seconds
+            if scan_directories is not None:
+                self.custom_scan_directories = scan_directories
                 
             # Calculate new interval
             if self.frequency == 'Custom':
@@ -142,7 +154,8 @@ class PeriodicScanWorker(QThread):
                 'frequency': self.frequency,
                 'hours': self.hours,
                 'minutes': self.minutes,
-                'seconds': self.seconds
+                'seconds': self.seconds,
+                'scan_directories': self.custom_scan_directories
             }
             
             # Preserve last scan and history
@@ -198,6 +211,7 @@ class PeriodicScanWorker(QThread):
                                     'hours': self.hours,
                                     'minutes': self.minutes,
                                     'seconds': self.seconds,
+                                    'scan_directories': self.custom_scan_directories,
                                     'history': []
                                 }
                                 
@@ -222,6 +236,10 @@ class PeriodicScanWorker(QThread):
                         # Emit completion signal
                         self.scan_completed.emit(scan_results)
                         
+                        # Check for suspicious files and emit signal if found
+                        if scan_results["suspicious_files"]:
+                            self.suspicious_files_found.emit(scan_results["suspicious_files"])
+                        
                 # Short sleep to keep CPU usage low
                 time.sleep(1)
                 
@@ -241,7 +259,7 @@ class PeriodicScanWorker(QThread):
         }
         
         # Initialize directories to scan
-        dirs_to_scan = ["test_data"]
+        dirs_to_scan = self.custom_scan_directories
         
         # Log the directories being scanned
         self.logger.info(f"Scanning directories: {dirs_to_scan}")
@@ -386,6 +404,22 @@ class PeriodicScanWorker(QThread):
         
         return scan_results
     
+    def quarantine_suspicious_files(self, suspicious_files):
+        """
+        Move suspicious files to quarantine using Moving Target Defense
+        Returns tuple of (success, list of moved files)
+        """
+        self.logger.info(f"Quarantining {len(suspicious_files)} suspicious files")
+        try:
+            # Call the MTD function to move files
+            success, moved_files = rotate_file_paths()
+            self.logger.info(f"MTD quarantine result: success={success}, moved_files={len(moved_files)}")
+            return success, moved_files
+        except Exception as e:
+            self.logger.error(f"Error quarantining files: {e}")
+            self.logger.error(traceback.format_exc())
+            return False, []
+    
     def check_file_suspicious(self, filepath):
         """Check if a file is suspicious based on content and attributes"""
         try:
@@ -460,6 +494,7 @@ class PeriodicScanWorker(QThread):
                     'hours': self.hours,
                     'minutes': self.minutes,
                     'seconds': self.seconds,
+                    'scan_directories': self.custom_scan_directories,
                     'history': []
                 }
             
@@ -513,6 +548,9 @@ class PeriodicScanWorker(QThread):
         self.wait()
 
 class PeriodicScanTab(QWidget):
+    # Add new signal for navigation to Prevention tab
+    navigate_to_prevention = pyqtSignal()
+    
     def __init__(self, parent=None, detection_callback=None):
         super().__init__(parent)
         self.detection_callback = detection_callback
@@ -522,6 +560,7 @@ class PeriodicScanTab(QWidget):
         # Create the worker thread
         self.worker = PeriodicScanWorker()
         self.worker.scan_completed.connect(self.on_scan_completed)
+        self.worker.suspicious_files_found.connect(self.on_suspicious_files_found)
         self.worker.start()
         
         self.initUI()
@@ -560,6 +599,104 @@ class PeriodicScanTab(QWidget):
         header_layout.addWidget(desc)
         
         scroll_layout.addWidget(header)
+        
+        # Directory selection section
+        dir_card = QFrame()
+        dir_card.setStyleSheet("""
+            QFrame {
+                background-color: white;
+                border-radius: 10px;
+                border: 1px solid #e0e0e0;
+            }
+        """)
+        dir_layout = QVBoxLayout(dir_card)
+        
+        # Card title
+        dir_title = QLabel("Scan Directories")
+        dir_title.setFont(QFont('Helvetica', 16, QFont.Bold))
+        dir_title.setStyleSheet("color: #333; margin-bottom: 5px;")
+        dir_layout.addWidget(dir_title)
+        
+        # Card subtitle
+        dir_subtitle = QLabel("Select which directories to monitor for suspicious files")
+        dir_subtitle.setFont(QFont('Helvetica', 11))
+        dir_subtitle.setStyleSheet("color: #666;")
+        dir_layout.addWidget(dir_subtitle)
+        
+        dir_layout.addSpacing(10)
+        
+        # Directory list
+        self.dir_list = QListWidget()
+        self.dir_list.setMinimumHeight(100)
+        self.dir_list.setMaximumHeight(150)
+        self.dir_list.setStyleSheet("""
+            QListWidget {
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+                background-color: #f8f9fa;
+                padding: 5px;
+            }
+        """)
+        dir_layout.addWidget(self.dir_list)
+        
+        # Directory buttons
+        dir_buttons = QHBoxLayout()
+        
+        add_dir_btn = QPushButton("Add Directory")
+        add_dir_btn.setIcon(QIcon("drawable/add_icon.png"))
+        add_dir_btn.setFont(QFont('Helvetica', 12))
+        add_dir_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #2196F3;
+                color: white;
+                border-radius: 5px;
+                padding: 8px 15px;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+            }
+        """)
+        add_dir_btn.clicked.connect(self.add_directory)
+        dir_buttons.addWidget(add_dir_btn)
+        
+        remove_dir_btn = QPushButton("Remove")
+        remove_dir_btn.setIcon(QIcon("drawable/remove_icon.png"))
+        remove_dir_btn.setFont(QFont('Helvetica', 12))
+        remove_dir_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #F44336;
+                color: white;
+                border-radius: 5px;
+                padding: 8px 15px;
+            }
+            QPushButton:hover {
+                background-color: #D32F2F;
+            }
+        """)
+        remove_dir_btn.clicked.connect(self.remove_directory)
+        dir_buttons.addWidget(remove_dir_btn)
+        
+        dir_layout.addLayout(dir_buttons)
+        
+        # Apply directory settings button
+        apply_dir_btn = QPushButton("Apply Directory Settings")
+        apply_dir_btn.setFont(QFont('Helvetica', 12, QFont.Bold))
+        apply_dir_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            QPushButton:hover {
+                background-color: #388E3C;
+            }
+        """)
+        apply_dir_btn.clicked.connect(self.save_directory_settings)
+        dir_layout.addWidget(apply_dir_btn, alignment=Qt.AlignRight)
+        
+        scroll_layout.addWidget(dir_card)
         
         # Schedule settings card
         settings_card = QFrame()
@@ -751,6 +888,24 @@ class PeriodicScanTab(QWidget):
         
         settings_layout.addWidget(next_scan_container)
         
+        # Manual scan button
+        manual_scan_btn = QPushButton("Run Manual Scan Now")
+        manual_scan_btn.setFont(QFont('Helvetica', 14, QFont.Bold))
+        manual_scan_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #FF9800;
+                color: white;
+                border-radius: 5px;
+                padding: 12px;
+                margin-top: 15px;
+            }
+            QPushButton:hover {
+                background-color: #F57C00;
+            }
+        """)
+        manual_scan_btn.clicked.connect(self.run_manual_scan)
+        settings_layout.addWidget(manual_scan_btn)
+        
         scroll_layout.addWidget(settings_card)
         
         # History card
@@ -802,12 +957,92 @@ class PeriodicScanTab(QWidget):
         
         scroll_layout.addWidget(history_card)
         
+        # Alert container for suspicious files (initially hidden)
+        self.alert_container = QFrame()
+        self.alert_container.setStyleSheet("""
+            QFrame {
+                background-color: #FFF3E0;
+                border: 2px solid #FF9800;
+                border-radius: 10px;
+                padding: 10px;
+                margin-top: 15px;
+            }
+        """)
+        self.alert_container.setVisible(False)
+        alert_layout = QVBoxLayout(self.alert_container)
+        
+        alert_title = QLabel("⚠️ SUSPICIOUS FILES DETECTED")
+        alert_title.setFont(QFont('Helvetica', 14, QFont.Bold))
+        alert_title.setStyleSheet("color: #E65100;")
+        alert_title.setAlignment(Qt.AlignCenter)
+        alert_layout.addWidget(alert_title)
+        
+        self.alert_details = QLabel()
+        self.alert_details.setFont(QFont('Helvetica', 12))
+        self.alert_details.setStyleSheet("color: #333;")
+        self.alert_details.setWordWrap(True)
+        alert_layout.addWidget(self.alert_details)
+        
+        # Go to prevention button
+        go_to_prevention_btn = QPushButton("Go to Prevention Tab to Protect Files")
+        go_to_prevention_btn.setFont(QFont('Helvetica', 12, QFont.Bold))
+        go_to_prevention_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #FF5722;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            QPushButton:hover {
+                background-color: #E64A19;
+            }
+        """)
+        go_to_prevention_btn.clicked.connect(self.go_to_prevention)
+        alert_layout.addWidget(go_to_prevention_btn)
+        
+        scroll_layout.addWidget(self.alert_container)
+        
         # Add stretch to push content to top
         scroll_layout.addStretch()
         
         # Set up scroll area
         scroll_area.setWidget(scroll_content)
         main_layout.addWidget(scroll_area)
+
+    def add_directory(self):
+        """Add a directory to scan list"""
+        dir_path = QFileDialog.getExistingDirectory(self, "Select Directory to Scan")
+        if dir_path:
+            # Check if already in list
+            if self.dir_list.findItems(dir_path, Qt.MatchExactly):
+                return
+            
+            self.dir_list.addItem(dir_path)
+
+    def remove_directory(self):
+        """Remove selected directory from scan list"""
+        selected_items = self.dir_list.selectedItems()
+        if selected_items:
+            for item in selected_items:
+                self.dir_list.takeItem(self.dir_list.row(item))
+
+    def save_directory_settings(self):
+        """Save directory settings to config"""
+        directories = []
+        for i in range(self.dir_list.count()):
+            directories.append(self.dir_list.item(i).text())
+        
+        # Always ensure test_data is included for compatibility
+        if "test_data" not in directories:
+            directories.append("test_data")
+            self.dir_list.addItem("test_data")
+        
+        # Update worker configuration
+        self.worker.update_config(scan_directories=directories)
+        
+        # Show acknowledgment
+        self.show_acknowledgment(f"Scan directories updated: {len(directories)} directories configured")
 
     def set_frequency(self, frequency):
         # Update custom frame visibility
@@ -952,6 +1187,14 @@ class PeriodicScanTab(QWidget):
             # Show acknowledgment
             self.show_acknowledgment("Scheduled scan started")
 
+    def run_manual_scan(self):
+        """Manually trigger a scan"""
+        # Force an immediate scan
+        self.worker.last_scan_time = 0  
+        
+        # Show acknowledgment
+        self.show_acknowledgment("Manual scan started")
+
     def on_scan_completed(self, results):
         """Handle scan results from worker thread"""
         # Update history with the scan results
@@ -1013,6 +1256,45 @@ class PeriodicScanTab(QWidget):
         # Save updated history
         self.save_schedule_config()
 
+    def on_suspicious_files_found(self, suspicious_files):
+        """Handle suspicious files detected during scan"""
+        if not suspicious_files:
+            self.alert_container.setVisible(False)
+            return
+        
+        # Show alert container
+        self.alert_container.setVisible(True)
+        
+        # Format alert message
+        file_count = len(suspicious_files)
+        file_names = [f['name'] for f in suspicious_files[:3]]
+        
+        alert_text = f"Found {file_count} suspicious file"
+        alert_text += "s" if file_count > 1 else ""
+        alert_text += f": {', '.join(file_names)}"
+        
+        if file_count > 3:
+            alert_text += f", and {file_count - 3} more"
+        
+        alert_text += "\n\nThese files may be ransomware-related and should be quarantined for safety."
+        self.alert_details.setText(alert_text)
+        
+        # Offer quarantine functionality - automatically quarantine files
+        success, moved_files = self.worker.quarantine_suspicious_files(suspicious_files)
+        
+        if success and moved_files:
+            additional_text = f"\n\n✓ {len(moved_files)} file(s) automatically moved to secure quarantine."
+            current_text = self.alert_details.text()
+            self.alert_details.setText(current_text + additional_text)
+
+    def go_to_prevention(self):
+        """Navigate to Prevention tab"""
+        # Emit signal to navigate to prevention tab
+        self.navigate_to_prevention.emit()
+        
+        # Hide alert after navigation
+        QTimer.singleShot(500, lambda: self.alert_container.setVisible(False))
+
     def clear_history(self):
         self.history_browser.clear()
         self.save_schedule_config()
@@ -1034,6 +1316,17 @@ class PeriodicScanTab(QWidget):
                 self.minutes_spin.setValue(config.get('minutes', 30))
                 self.seconds_spin.setValue(config.get('seconds', 0))
                 
+                # Load scan directories
+                if 'scan_directories' in config:
+                    directories = config.get('scan_directories', ["test_data"])
+                    self.dir_list.clear()
+                    for directory in directories:
+                        self.dir_list.addItem(directory)
+                else:
+                    # Just add test_data as default
+                    self.dir_list.clear()
+                    self.dir_list.addItem("test_data")
+                
                 # Load history
                 if 'history' in config and config['history']:
                     for entry in config['history']:
@@ -1054,6 +1347,9 @@ class PeriodicScanTab(QWidget):
             self.hours_spin.setValue(0)
             self.minutes_spin.setValue(30)
             self.seconds_spin.setValue(0)
+            # Add default directory
+            self.dir_list.clear()
+            self.dir_list.addItem("test_data")
 
     def save_schedule_config(self):
         # Get current frequency
@@ -1063,6 +1359,11 @@ class PeriodicScanTab(QWidget):
             frequency = "Daily"
         else:
             frequency = "Custom"
+            
+        # Get scan directories
+        directories = []
+        for i in range(self.dir_list.count()):
+            directories.append(self.dir_list.item(i).text())
             
         # Get history
         history = []
@@ -1079,6 +1380,7 @@ class PeriodicScanTab(QWidget):
             'hours': self.hours_spin.value(),
             'minutes': self.minutes_spin.value(),
             'seconds': self.seconds_spin.value(),
+            'scan_directories': directories,
             'last_scan': QDateTime.currentDateTime().toString('yyyy-MM-dd hh:mm:ss'),
             'history': history
         }
