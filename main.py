@@ -1,1322 +1,369 @@
-import tkinter as tk
-from tkinter import messagebox, ttk
-from PIL import Image, ImageTk
+import sys
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+                           QPushButton, QLabel, QTabWidget, QFrame, QApplication,
+                           QMessageBox, QGraphicsDropShadowEffect)
+from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QEventLoop
+from PyQt5.QtGui import QFont, QPixmap, QColor, QMovie, QIcon
 import subprocess
 import os
-from reports.generate_report import generate_report
-from prevention.moving_target_defense import rotate_file_paths
-from tkinter import Label
-import time
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 import threading
-import math
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
-from email.mime.text import MIMEText
+import time
 
 # Set matplotlib backend
 import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+matplotlib.use('Qt5Agg')
 
-class RansomwareApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Ransomware Detection and Prevention")
-        self.root.geometry("1536x864")
+from components.detection import DetectionTab
+from components.prevention import PreventionTab
+from components.periodic_scan import PeriodicScanTab
+from components.service_control_tab import ServiceControlTab  # Add this import
+from components.report_tab import ReportTab  # Add this import
+from components.exit_tab import ExitTab  # Add import for ExitTab
 
-        # Load icons
-        self.virus_icon = tk.PhotoImage(file="drawable/icons8-virus-file-24.png")
-        self.lock_icon = tk.PhotoImage(file="drawable/icons8-lock-50.png")
-        self.shield_icon = tk.PhotoImage(file="drawable/icons8-shield-50.png")
+class DetectionWorker(QThread):
+    finished = pyqtSignal(dict, tuple)
+    error = pyqtSignal(str)
 
-        # Load and set the background image
-        self.bg_image = Image.open("bg.jpg")
-        self.bg_image = self.bg_image.resize((1536, 864))
-        self.bg_photo = ImageTk.PhotoImage(self.bg_image)
+    def run(self):
+        try:
+            results = {}
+            # Run detection processes with error handling
+            detection_modules = [
+                ("Behavioral", "behavioral_analysis.py"),
+                ("File System", "file_system_monitoring.py"),
+                ("Net Traffic", "network_traffic_analysis.py"),
+                ("Registry", "registry_monitoring.py"),
+                ("Process", "process_monitoring.py"),
+                ("API", "api_calls_analysis.py"),
+                ("Static", "static_analysis.py")
+            ]
 
-        self.bg_label = Label(root, image=self.bg_photo)
-        self.bg_label.place(relwidth=1, relheight=1)
+            for module_name, script in detection_modules:
+                try:
+                    process = subprocess.Popen(
+                        [sys.executable, f"detection/{script}"],
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE
+                    )
+                    _, stderr = process.communicate(timeout=10)  # 10 second timeout
+                    results[module_name] = process.returncode == 1
+                    
+                    if stderr and not stderr.decode().startswith("WARNING"):
+                        print(f"Error in {module_name}: {stderr.decode()}")
+                        
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    results[module_name] = False
+                except Exception as e:
+                    print(f"Error running {module_name}: {str(e)}")
+                    results[module_name] = False
 
-        # Modern theme colors
-        self.bg_color = '#1c1c1c'
-        self.frame_bg_color = '#1c1c1c'
-        self.button_color = '#0056A0'
-        self.button_fg_color = 'white'
-        self.label_fg_color = 'white'
-        self.status_fg_color = 'lightgreen'
-        self.error_fg_color = 'red'
+            # Calculate severity
+            detections = sum(results.values())
+            if detections >= 5:
+                severity = ("Severe", "#F44336")
+            elif 2 <= detections <= 4:
+                severity = ("Mild", "#FF9800")
+            else:
+                severity = ("Normal", "#4CAF50")
+            
+            self.finished.emit(results, severity)
+            
+        except Exception as e:
+            self.error.emit(str(e))
 
-        # Create main frame
-        self.main_frame = tk.Frame(root, bg=self.bg_color)
-        self.main_frame.place(relwidth=1, relheight=1)
+class RansomwareApp(QMainWindow):
+    def __init__(self, parent=None, user_email=None, user_role=None):
+        super().__init__(parent)
+        self.user_email = user_email
+        self.user_role = user_role
+        self.screen = QApplication.primaryScreen().geometry()
+        self.initUI()
+        self.showMaximized()
 
-        # Project Title
-        self.title_label = tk.Label(
-            self.main_frame,
-            text="Ransomware Detection and Prevention",
-            font=('Helvetica', 24, 'bold'),
-            bg=self.bg_color,
-            fg=self.label_fg_color,
-            pady=20
-        )
-        self.title_label.pack()
+    def center_window(self):
+        # Center window on screen
+        frame = self.frameGeometry()
+        center = QApplication.primaryScreen().availableGeometry().center()
+        frame.moveCenter(center)
+        self.move(frame.topLeft())
 
-        # Configure ttk styles
-        self.style = ttk.Style()
-        self.style.theme_use('default')
+    def initUI(self):
+        self.setWindowTitle("Ransomware Detection and Prevention")
 
-        # Configure the notebook style
-        self.style.configure(
-            "Custom.TNotebook",
-            background=self.bg_color,
-            borderwidth=0,
-            tabmargins=[2, 5, 2, 0]
-        )
+        # Define colors (matching original theme)
+        self.bg_color = '#FFFFFF'
+        self.frame_bg_color = '#F5F5F5'
+        self.button_color = '#2196F3'
+        self.button_hover_color = '#1976D2'
+        self.label_fg_color = '#333333'
+        self.status_fg_color = '#4CAF50'
+        self.error_fg_color = '#F44336'
+
+        # Create directory structure for service and data
+        os.makedirs("C:/ProgramData/RansomwareDetection", exist_ok=True)
+        os.makedirs("C:/ProgramData/RansomwareDetection/logs", exist_ok=True)
         
-        self.style.configure(
-            "Custom.TNotebook.Tab",
-            padding=[20, 10],
-            background='#2c2c2c',
-            foreground='white',
-            font=('Helvetica', 12, 'bold'),
-            borderwidth=0
+        # Ensure core data directory exists
+        core_data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "core", "data")
+        os.makedirs(core_data_dir, exist_ok=True)
+
+        # Create and setup central widget
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        main_layout = QVBoxLayout(central_widget)
+        main_layout.setContentsMargins(
+            int(self.screen.width() * 0.05),   # left
+            int(self.screen.height() * 0.03),  # top
+            int(self.screen.width() * 0.05),   # right
+            int(self.screen.height() * 0.03)   # bottom
         )
+
+        # Header with logo layout (similar to role_page)
+        logo_frame = QFrame()
+        logo_layout = QHBoxLayout(logo_frame)
+        logo_layout.setSpacing(40)
+        logo_layout.setContentsMargins(0, 0, 0, 30)
         
-        self.style.map(
-            "Custom.TNotebook.Tab",
-            background=[("selected", '#0056A0'), ("active", '#004080')],
-            foreground=[("selected", 'white'), ("active", 'white')]
-        )
+        # Load and add logos - updated sizes to match role_page
+        logo_files = ["pillai_flower.png", "pillai_name.png", "pillai_naac.png"]
+        logo_sizes = [
+            (int(self.screen.width() * 0.08), int(self.screen.height() * 0.1)),  # flower
+            (int(self.screen.width() * 0.3), int(self.screen.height() * 0.1)),   # name
+            (int(self.screen.width() * 0.08), int(self.screen.height() * 0.1))   # naac
+        ]
+        
+        try:
+            for logo_file, (width, height) in zip(logo_files, logo_sizes):
+                logo_label = QLabel()
+                pixmap = QPixmap(f"drawable/{logo_file}")
+                scaled_pixmap = pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                logo_label.setPixmap(scaled_pixmap)
+                logo_label.setAlignment(Qt.AlignCenter)
+                logo_layout.addWidget(logo_label)
+        except Exception as e:
+            print(f"Could not load logos: {e}")
+        
+        main_layout.addWidget(logo_frame)
 
-        # Configure frame style
-        self.style.configure(
-            'Custom.TFrame',
-            background=self.frame_bg_color
-        )
+        # User info section with enhanced styling
+        if self.user_email and self.user_role:
+            user_frame = QFrame()
+            user_frame.setStyleSheet("""
+                QFrame {
+                    background-color: #f8f9fa;
+                    border-radius: 10px;
+                    padding: 10px;
+                }
+            """)
+            user_layout = QHBoxLayout(user_frame)
+            
+            role_icon = "👤" if self.user_role == 'student' else "👨‍🏫" if self.user_role == 'faculty' else "⚙️"
+            user_info = QLabel(f"{role_icon} {self.user_role.title()}: {self.user_email}")
+            user_info.setFont(QFont('Helvetica', 14))
+            user_info.setStyleSheet("color: #333333;")
+            user_layout.addWidget(user_info)
+            
+            main_layout.addWidget(user_frame)
 
-        # Create notebook
-        self.notebook = ttk.Notebook(
-            self.main_frame,
-            style="Custom.TNotebook"
-        )
-        self.notebook.pack(fill='both', expand=True, padx=20, pady=20)
+        # Title with gradient background - reduced size and padding
+        title_frame = QFrame()
+        title_frame.setStyleSheet("""
+            QFrame {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                          stop:0 #2196F3, stop:1 #1976D2);
+                border-radius: 15px;
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+        """)
+        title_layout = QVBoxLayout(title_frame)
+        title_layout.setContentsMargins(10, 5, 10, 5)  # Reduced padding
+        
+        title = QLabel("Ransomware Detection and Prevention")
+        title.setFont(QFont('Helvetica', 18, QFont.Bold))  # Reduced from 22/24
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet("color: white;")
+        title_layout.addWidget(title)
+        
+        main_layout.addWidget(title_frame)
 
-        # Create frames for each tab
-        self.detection_frame = tk.Frame(self.notebook, bg=self.frame_bg_color)
-        self.prevention_frame = tk.Frame(self.notebook, bg=self.frame_bg_color)
-        self.report_frame = tk.Frame(self.notebook, bg=self.frame_bg_color)
-        self.exit_frame = tk.Frame(self.notebook, bg=self.frame_bg_color)  # New exit frame
+        # Tab widget with modern styling
+        self.tab_widget = QTabWidget()
+        self.tab_widget.setStyleSheet("""
+            QTabWidget::pane {
+                border: none;
+                background: white;
+            }
+            QTabBar::tab {
+                padding: 12px 25px;
+                background: #E0E0E0;
+                color: #333333;
+                font: bold 16px 'Helvetica';
+                margin-right: 4px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            QTabBar::tab:selected {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                          stop:0 #2196F3, stop:1 #1976D2);
+                color: white;
+            }
+            QTabBar::tab:hover:!selected {
+                background: #64B5F6;
+                color: white;
+            }
+        """)
 
-        # Add frames to notebook
-        self.notebook.add(self.detection_frame, text="Detection")
-        self.notebook.add(self.prevention_frame, text="Prevention")
-        self.notebook.add(self.report_frame, text="Generate Report")
-        self.notebook.add(self.exit_frame, text="Exit")  # Add exit tab
+        # Create tabs
+        self.detection_tab = QWidget()
+        self.prevention_tab = QWidget()
+        self.periodic_scan_tab = QWidget()
+        self.service_tab = QWidget()  # Add new tab
+        self.report_tab = QWidget()
+        self.exit_tab = QWidget()
 
-        # Initialize tab contents
+        # Add tabs - new order with service tab
+        self.tab_widget.addTab(self.detection_tab, "Detection")
+        self.tab_widget.addTab(self.prevention_tab, "Prevention")
+        self.tab_widget.addTab(self.periodic_scan_tab, "Periodic Scanning")
+        self.tab_widget.addTab(self.service_tab, "Background Service")  # Add the new tab
+        self.tab_widget.addTab(self.report_tab, "Generate Report")
+        
+        # Use a flag to track whether we've already added the Exit tab
+        self.exit_tab_added = False
+        
+        # Only add the Exit tab if it hasn't been added yet
+        if not self.exit_tab_added:
+            email = getattr(self, 'user_email', 'user@example.com')
+            role = getattr(self, 'user_role', 'admin')
+            
+            self.exit_tab = ExitTab(user_info={"email": email, "role": role})
+            self.exit_tab.logout_requested.connect(self.handle_logout)
+            self.tab_widget.addTab(self.exit_tab, QIcon("drawable/exit_icon.png"), "Exit")
+            self.exit_tab_added = True
+
+        main_layout.addWidget(self.tab_widget)
+
+        # Setup individual tabs
         self.setup_detection_tab()
         self.setup_prevention_tab()
+        self.setup_periodic_scan_tab()
+        self.setup_service_tab()  # Add this method call
         self.setup_report_tab()
-        self.setup_exit_tab()  # Setup exit tab
+        self.setup_exit_tab()
 
     def setup_detection_tab(self):
-        # Create a container frame with padding
-        container = tk.Frame(
-            self.detection_frame,
-            bg=self.frame_bg_color,
-            padx=30,
-            pady=20
-        )
-        container.pack(fill='both', expand=True)
-
-        # Info Label with enhanced styling
-        info_label = tk.Label(
-            container,
-            text="Monitor and detect potential ransomware activities",
-            font=('Helvetica', 18, 'bold'),
-            bg=self.frame_bg_color,
-            fg='#e0e0e0',
-            wraplength=800,
-            justify="center"
-        )
-        info_label.pack(pady=(20, 40))
-
-        # Create button frame for hover effect
-        button_frame = tk.Frame(container, bg=self.frame_bg_color)
-        button_frame.pack(pady=(0, 30))
-
-        # Start Detection Button with hover effect
-        self.start_detection_btn = tk.Button(
-            button_frame,
-            text="Start Detection",
-            command=self.start_detection,
-            bg=self.button_color,
-            fg=self.button_fg_color,
-            font=('Helvetica', 14, 'bold'),
-            relief=tk.FLAT,
-            borderwidth=0,
-            width=20,
-            cursor="hand2"
-        )
-        self.start_detection_btn.pack(pady=10)
-
-        # Bind hover events
-        self.start_detection_btn.bind('<Enter>', lambda e: e.widget.config(bg='#0066CC'))
-        self.start_detection_btn.bind('<Leave>', lambda e: e.widget.config(bg=self.button_color))
-
-        # Loading animation canvas (hidden initially)
-        self.loading_canvas = tk.Canvas(
-            container,
-            width=100,  # Increased size
-            height=100,  # Increased size
-            bg=self.frame_bg_color,
-            highlightthickness=0
-        )
-        self.loading_canvas.pack_forget()
-
-        # Plot Frame with border
-        self.plot_frame = tk.Frame(
-            container,
-            bg=self.frame_bg_color,
-            relief=tk.SOLID,
-            borderwidth=1,
-            highlightbackground='#404040',
-            highlightthickness=1
-        )
-        self.plot_frame.pack(pady=20, fill=tk.BOTH, expand=True)
-
-        # Labels Frame
-        labels_frame = tk.Frame(container, bg=self.frame_bg_color)
-        labels_frame.pack(fill='x', pady=10)
-
-        # Severity Label with enhanced styling
-        self.severity_label = tk.Label(
-            labels_frame,
-            text="",
-            font=('Helvetica', 14, 'bold'),
-            bg=self.frame_bg_color,
-            fg=self.label_fg_color
-        )
-        self.severity_label.pack(pady=5)
-
-        # Recently Detected Label
-        self.recently_detected_label = tk.Label(
-            labels_frame,
-            text="",
-            font=('Helvetica', 12, 'bold'),
-            bg=self.frame_bg_color,
-            fg='#0056A0'
-        )
-        self.recently_detected_label.pack(pady=5)
-
-        # Suspicious Files Label
-        self.suspicious_files_label = tk.Label(
-            labels_frame,
-            text="",
-            font=('Helvetica', 11),
-            bg=self.frame_bg_color,
-            fg=self.label_fg_color
-        )
-        self.suspicious_files_label.pack(pady=5)
+        detection_tab = DetectionTab(self.screen)
+        layout = QVBoxLayout(self.detection_tab)
+        layout.addWidget(detection_tab)
 
     def setup_prevention_tab(self):
-        # Create container frame
-        container = tk.Frame(
-            self.prevention_frame,
-            bg=self.frame_bg_color,
-            padx=30,
-            pady=20
-        )
-        container.pack(fill='both', expand=True)
+        prevention_tab = PreventionTab()
+        layout = QVBoxLayout(self.prevention_tab)
+        layout.addWidget(prevention_tab)
 
-        # Info Label with icon
-        info_frame = tk.Frame(container, bg=self.frame_bg_color)
-        info_frame.pack(pady=(0, 30))
-        
-        # Shield icon label
-        icon_label = tk.Label(
-            info_frame,
-            image=self.shield_icon,
-            bg=self.frame_bg_color
-        )
-        icon_label.pack(pady=(0, 10))
+    def setup_periodic_scan_tab(self):  # Add this new method
+        periodic_scan_tab = PeriodicScanTab(detection_callback=self.run_detection)
+        layout = QVBoxLayout(self.periodic_scan_tab)
+        layout.addWidget(periodic_scan_tab)
+        self.periodic_scan = periodic_scan_tab  # Save reference
 
-        info_label = tk.Label(
-            info_frame,
-            text="Implement Moving Target Defense to prevent ransomware attacks",
-            font=('Helvetica', 18, 'bold'),
-            bg=self.frame_bg_color,
-            fg='#e0e0e0',
-            wraplength=800,
-            justify="center"
-        )
-        info_label.pack()
-
-        # Animation canvas
-        self.prevention_canvas = tk.Canvas(
-            container,
-            width=400,
-            height=100,
-            bg=self.frame_bg_color,
-            highlightthickness=0
-        )
-        self.prevention_canvas.pack(pady=20)
-
-        # Create initial file icons
-        self.file_icons = []
-        self.create_file_icons()
-
-        # Button frame
-        button_frame = tk.Frame(container, bg=self.frame_bg_color)
-        button_frame.pack(pady=(0, 30))
-
-        # Start Prevention Button
-        self.start_prevention_btn = tk.Button(
-            button_frame,
-            text="Start Prevention",
-            command=self.start_prevention,
-            bg=self.button_color,
-            fg=self.button_fg_color,
-            font=('Helvetica', 14, 'bold'),
-            relief=tk.FLAT,
-            borderwidth=0,
-            width=20,
-            cursor="hand2"
-        )
-        self.start_prevention_btn.pack(pady=10)
-
-        # Bind hover events
-        self.start_prevention_btn.bind('<Enter>', lambda e: e.widget.config(bg='#0066CC'))
-        self.start_prevention_btn.bind('<Leave>', lambda e: e.widget.config(bg=self.button_color))
-
-        # Status frame
-        status_frame = tk.Frame(container, bg=self.frame_bg_color)
-        status_frame.pack(fill='x', pady=20)
-
-        # Prevention Status Label
-        self.prevention_status_label = tk.Label(
-            status_frame,
-            text="",
-            font=('Helvetica', 12, 'bold'),
-            bg=self.frame_bg_color,
-            fg=self.status_fg_color
-        )
-        self.prevention_status_label.pack(pady=10)
-
-        # File Paths Label
-        self.file_paths_label = tk.Label(
-            status_frame,
-            text="",
-            font=('Helvetica', 11),
-            bg=self.frame_bg_color,
-            fg=self.label_fg_color,
-            wraplength=600,
-            justify="left"
-        )
-        self.file_paths_label.pack(pady=10)
-
-    def create_file_icons(self):
-        # Clear existing icons
-        self.prevention_canvas.delete("all")
-        self.file_icons.clear()
-
-        # Create file icons
-        for i in range(5):
-            x = 50 + i * 80
-            y = 50
-            icon = self.prevention_canvas.create_image(
-                x, y,
-                image=self.virus_icon
-            )
-            self.file_icons.append(icon)
-
-    def animate_file_movement(self, moved_files):
-        def move_files(step=0):
-            if step < 20:  # Animation steps
-                for icon in self.file_icons:
-                    # Move up and right
-                    self.prevention_canvas.move(icon, 2, -1)
-                self.root.after(50, lambda: move_files(step + 1))
-            else:
-                # Replace with lock icons
-                self.prevention_canvas.delete("all")
-                for i in range(len(self.file_icons)):
-                    x = 50 + i * 80
-                    y = 30
-                    self.prevention_canvas.create_image(
-                        x, y,
-                        image=self.lock_icon
-                    )
-
-        move_files()
-
-    def start_prevention(self):
-        try:
-            prevention_result, moved_files = rotate_file_paths()
-            if prevention_result:
-                self.prevention_status_label.config(
-                    text="Prevention successful: Files secured! 🛡️",
-                    fg=self.status_fg_color
-                )
-                moved_files_text = "\n".join([f"✓ File moved: {source} ➜ {destination}"
-                                            for source, destination in moved_files])
-                self.file_paths_label.config(text=moved_files_text)
-                self.animate_file_movement(moved_files)
-                self.update_suspicious_files(moved_files)
-            else:
-                self.prevention_status_label.config(
-                    text="Folder empty: No files found to move! ℹ️",
-                    fg=self.status_fg_color
-                )
-        except Exception as e:
-            messagebox.showerror("Error", f"An error occurred during prevention: {e}")
-
-    def update_suspicious_files(self, moved_files):
-        try:
-            results_file_path = 'suspicious_files.txt'
-            if os.path.exists(results_file_path):
-                with open(results_file_path, 'r') as file:
-                    suspicious_files = file.readlines()
-
-                moved_file_names = {os.path.basename(file[0].strip())
-                                  for file in moved_files}
-                updated_suspicious_files = [
-                    file for file in suspicious_files
-                    if os.path.basename(file.strip()) not in moved_file_names
-                ]
-
-                with open(results_file_path, 'w') as file:
-                    file.writelines(updated_suspicious_files)
-
-                if updated_suspicious_files:
-                    self.suspicious_files_label.config(
-                        text="Suspicious Files Prevention done.")
-                else:
-                    self.suspicious_files_label.config(
-                        text="No suspicious files detected.")
-            else:
-                self.suspicious_files_label.config(
-                    text="No suspicious files detected.")
-        except Exception as e:
-            messagebox.showerror(
-                "Error", f"An error occurred while updating suspicious files: {e}")
+    def setup_service_tab(self):
+        """Setup service control tab"""
+        service_tab = ServiceControlTab()
+        layout = QVBoxLayout(self.service_tab)
+        layout.addWidget(service_tab)
 
     def setup_report_tab(self):
-        # Create container frame
-        container = tk.Frame(
-            self.report_frame,
-            bg=self.frame_bg_color,
-            padx=30,
-            pady=20
-        )
-        container.pack(fill='both', expand=True)
-
-        # Info Label with enhanced styling
-        info_label = tk.Label(
-            container,
-            text="Generate concise summary or detailed report of detection and prevention activities",
-            font=('Helvetica', 18, 'bold'),
-            bg=self.frame_bg_color,
-            fg='#e0e0e0',
-            wraplength=800,
-            justify="center"
-        )
-        info_label.pack(pady=(0, 30))
-
-        # Report Options Frame with enhanced styling
-        options_frame = tk.Frame(container, bg=self.frame_bg_color)
-        options_frame.pack(pady=(0, 20))
-
-        # Enhanced checkbox style
-        checkbox_style = {
-            'bg': self.frame_bg_color,
-            'fg': '#e0e0e0',
-            'selectcolor': '#0056A0',
-            'activebackground': self.frame_bg_color,
-            'activeforeground': '#e0e0e0',
-            'font': ('Helvetica', 14),
-            'bd': 0,
-            'relief': tk.FLAT,
-            'highlightthickness': 0
-        }
-
-        # Checkboxes with enhanced text
-        self.include_detection = tk.BooleanVar(value=True)
-        self.include_prevention = tk.BooleanVar(value=True)
-        self.include_timestamps = tk.BooleanVar(value=True)
-        self.detailed_report = tk.BooleanVar(value=False)
-
-        # Create checkboxes
-        self.detection_checkbox = tk.Checkbutton(
-            options_frame,
-            text="✓ Include Detection Results",
-            variable=self.include_detection,
-            **checkbox_style
-        )
-        self.detection_checkbox.pack(pady=8)
-
-        self.prevention_checkbox = tk.Checkbutton(
-            options_frame,
-            text="✓ Include Prevention Actions",
-            variable=self.include_prevention,
-            **checkbox_style
-        )
-        self.prevention_checkbox.pack(pady=8)
-
-        self.timestamps_checkbox = tk.Checkbutton(
-            options_frame,
-            text="✓ Include Timestamps",
-            variable=self.include_timestamps,
-            **checkbox_style
-        )
-        self.timestamps_checkbox.pack(pady=8)
-
-        # Add separator
-        separator = tk.Frame(options_frame, height=2, bg='#404040')
-        separator.pack(fill='x', pady=15)
-
-        # Detailed report checkbox
-        self.detailed_checkbox = tk.Checkbutton(
-            options_frame,
-            text="⚠ Generate Detailed Report (May take longer to load)",
-            variable=self.detailed_report,
-            command=self.toggle_report_options,
-            **checkbox_style
-        )
-        self.detailed_checkbox.pack(pady=8)
-
-        # Button frame
-        button_frame = tk.Frame(container, bg=self.frame_bg_color)
-        button_frame.pack(pady=(20, 30))
-
-        # Generate Report Button
-        self.generate_report_btn = tk.Button(
-            button_frame,
-            text="Generate Report",
-            command=self.generate_report,
-            bg=self.button_color,
-            fg=self.button_fg_color,
-            font=('Helvetica', 14, 'bold'),
-            relief=tk.FLAT,
-            borderwidth=0,
-            width=20,
-            cursor="hand2"
-        )
-        self.generate_report_btn.pack(pady=10)
-
-        # Bind hover events
-        self.generate_report_btn.bind('<Enter>', lambda e: e.widget.config(bg='#0066CC'))
-        self.generate_report_btn.bind('<Leave>', lambda e: e.widget.config(bg=self.button_color))
-
-        # Loading animation canvas (hidden initially)
-        self.report_loading_canvas = tk.Canvas(
-            container,
-            width=100,  # Increased size to match detection animation
-            height=100,  # Increased size to match detection animation
-            bg=self.frame_bg_color,
-            highlightthickness=0
-        )
-        self.report_loading_canvas.pack_forget()
-
-        # Status frame
-        status_frame = tk.Frame(container, bg=self.frame_bg_color)
-        status_frame.pack(fill='x', pady=20)
-
-        # Report Status Label
-        self.report_status_label = tk.Label(
-            status_frame,
-            text="",
-            font=('Helvetica', 12, 'bold'),
-            bg=self.frame_bg_color,
-            fg=self.status_fg_color
-        )
-        self.report_status_label.pack(pady=10)
-
-        # Report File Paths Label
-        self.report_file_paths_label = tk.Label(
-            status_frame,
-            text="",
-            font=('Helvetica', 11),
-            bg=self.frame_bg_color,
-            fg=self.label_fg_color,
-            wraplength=600,
-            justify="left"
-        )
-        self.report_file_paths_label.pack(pady=10)
-
-    def toggle_report_options(self):
-        # Enable/disable other checkboxes based on detailed report selection
-        state = 'disabled' if self.detailed_report.get() else 'normal'
-        self.detection_checkbox.config(state=state)
-        self.prevention_checkbox.config(state=state)
-        self.timestamps_checkbox.config(state=state)
-
-    def create_report_loading_animation(self):
-        # Use the same animation style as detection tab
-        self.report_loading_canvas.delete("all")
-        
-        # Animation parameters
-        center_x = 50
-        center_y = 50
-        max_radius = 35
-        num_circles = 8
-        angle = int(time.time() * 300) % 360  # Faster rotation
-        
-        for i in range(num_circles):
-            # Calculate position for each circle
-            circle_angle = angle + (i * (360 / num_circles))
-            radius = max_radius
-            size = 8  # Size of each circle
-            
-            # Calculate position with sine wave effect
-            x = center_x + radius * math.cos(math.radians(circle_angle))
-            y = center_y + radius * math.sin(math.radians(circle_angle))
-            
-            # Color gradient from blue to white
-            color_intensity = (i / num_circles)
-            color = self.interpolate_color('#0056A0', '#FFFFFF', color_intensity)
-            
-            # Draw circle with fade effect
-            self.report_loading_canvas.create_oval(
-                x - size/2, y - size/2,
-                x + size/2, y + size/2,
-                fill=color,
-                outline=color
-            )
-        
-        self.root.after(20, self.create_report_loading_animation)
-
-    def interpolate_color(self, color1, color2, factor):
-        # Convert hex colors to RGB
-        r1 = int(color1[1:3], 16)
-        g1 = int(color1[3:5], 16)
-        b1 = int(color1[5:7], 16)
-        
-        r2 = int(color2[1:3], 16)
-        g2 = int(color2[3:5], 16)
-        b2 = int(color2[5:7], 16)
-        
-        # Interpolate
-        r = int(r1 + (r2 - r1) * factor)
-        g = int(g1 + (g2 - g1) * factor)
-        b = int(b1 + (b2 - b1) * factor)
-        
-        # Convert back to hex
-        return f'#{r:02x}{g:02x}{b:02x}'
-
-    def create_loading_animation(self):
-        # Create loading animation with multiple circles
-        self.loading_canvas.delete("all")
-        
-        # Animation parameters
-        center_x = 50
-        center_y = 50
-        max_radius = 35
-        num_circles = 8
-        angle = int(time.time() * 300) % 360  # Faster rotation
-        
-        for i in range(num_circles):
-            # Calculate position for each circle
-            circle_angle = angle + (i * (360 / num_circles))
-            radius = max_radius
-            size = 8  # Size of each circle
-            
-            # Calculate position with sine wave effect
-            x = center_x + radius * math.cos(math.radians(circle_angle))
-            y = center_y + radius * math.sin(math.radians(circle_angle))
-            
-            # Color gradient from blue to white
-            color_intensity = (i / num_circles)
-            color = self.interpolate_color('#0056A0', '#FFFFFF', color_intensity)
-            
-            # Draw circle with fade effect
-            self.loading_canvas.create_oval(
-                x - size/2, y - size/2,
-                x + size/2, y + size/2,
-                fill=color,
-                outline=color
-            )
-        
-        self.root.after(20, self.create_loading_animation)  # Faster update rate
-
-    def show_detection_results(self, results, severity, severity_color):
-        # Create custom popup window
-        popup = tk.Toplevel(self.root)
-        popup.title("Detection Results")
-        popup.geometry("500x600")  # Adjust size as needed
-        popup.configure(bg=self.frame_bg_color)
-        
-        # Center the popup on screen
-        window_width = 500
-        window_height = 600
-        screen_width = popup.winfo_screenwidth()
-        screen_height = popup.winfo_screenheight()
-        x = (screen_width - window_width) // 2
-        y = (screen_height - window_height) // 2
-        popup.geometry(f"{window_width}x{window_height}+{x}+{y}")
-        
-        # Make popup modal
-        popup.transient(self.root)
-        popup.grab_set()
-        
-        # Title with enhanced styling
-        title = tk.Label(
-            popup,
-            text="Ransomware Detection Results",
-            font=('Helvetica', 20, 'bold'),
-            fg='white',
-            bg=self.frame_bg_color
-        )
-        title.pack(pady=25)
-
-        # Severity Level Label
-        severity_label = tk.Label(
-            popup,
-            text=f"Severity Level: {severity}",
-            font=('Helvetica', 16, 'bold'),
-            fg=severity_color,
-            bg=self.frame_bg_color
-        )
-        severity_label.pack(pady=10)
-
-        # Create frame for results
-        results_frame = tk.Frame(popup, bg=self.frame_bg_color)
-        results_frame.pack(fill='both', expand=True, padx=30, pady=(0, 20))
-        
-        # Add results with icons
-        for component, detected in results.items():
-            result_frame = tk.Frame(results_frame, bg=self.frame_bg_color)
-            result_frame.pack(fill='x', pady=8)
-            
-            # Status icon (green checkmark or red X)
-            status_label = tk.Label(
-                result_frame,
-                text="❌" if detected else "✓",
-                font=('Helvetica', 16),
-                fg='red' if detected else '#00ff00',
-                bg=self.frame_bg_color
-            )
-            status_label.pack(side='left', padx=(0, 15))
-            
-            # Component name
-            name_label = tk.Label(
-                result_frame,
-                text=component,
-                font=('Helvetica', 14, 'bold'),
-                fg='white',
-                bg=self.frame_bg_color
-            )
-            name_label.pack(side='left')
-            
-            # Status text
-            status_text = tk.Label(
-                result_frame,
-                text="Ransomware Detected" if detected else "No Ransomware Detected",
-                font=('Helvetica', 13),
-                fg='red' if detected else '#00ff00',
-                bg=self.frame_bg_color
-            )
-            status_text.pack(side='right')
-        
-        # Bottom frame for OK button
-        bottom_frame = tk.Frame(popup, bg=self.frame_bg_color)
-        bottom_frame.pack(side='bottom', fill='x', pady=25)
-        
-        # OK Button with enhanced styling
-        ok_button = tk.Button(
-            bottom_frame,
-            text="OK",
-            command=popup.destroy,
-            bg=self.button_color,
-            fg='white',
-            font=('Helvetica', 13, 'bold'),
-            relief=tk.FLAT,
-            borderwidth=0,
-            width=15,
-            height=2,
-            cursor="hand2"
-        )
-        ok_button.pack(pady=10)
-        
-        # Bind hover events for OK button
-        ok_button.bind('<Enter>', lambda e: e.widget.config(bg='#0066CC'))
-        ok_button.bind('<Leave>', lambda e: e.widget.config(bg=self.button_color))
-
-    def start_detection(self):
-        try:
-            # Show loading animation
-            self.start_detection_btn.config(state='disabled')
-            self.loading_canvas.pack(pady=10)
-            self.create_loading_animation()
-            
-            # Clear previous plot
-            for widget in self.plot_frame.winfo_children():
-                widget.destroy()
-
-            results = {}
-            
-            def run_detection():
-                # Run detection processes and store results
-                results['Behavioral'] = subprocess.Popen(["python", "detection/behavioral_analysis.py"]).wait() == 1
-                results['File System'] = subprocess.Popen(["python", "detection/file_system_monitoring.py"]).wait() == 1
-                results['Net Traffic'] = subprocess.Popen(["python", "detection/network_traffic_analysis.py"]).wait() == 1
-                results['Registry'] = subprocess.Popen(["python", "detection/registry_monitoring.py"]).wait() == 1
-                results['Process'] = subprocess.Popen(["python", "detection/process_monitoring.py"]).wait() == 1
-                results['API'] = subprocess.Popen(["python", "detection/api_calls_analysis.py"]).wait() == 1
-                results['Static'] = subprocess.Popen(["python", "detection/static_analysis.py"]).wait() == 1
-
-                # Calculate severity
-                detections_count = sum(results.values())
-                if detections_count >= 5:
-                    severity = "Severe"
-                    severity_color = 'red'
-                elif 2 <= detections_count <= 4:
-                    severity = "Mild"
-                    severity_color = 'orange'
-                elif 1 <= detections_count <= 2:
-                    severity = "Normal"
-                    severity_color = 'white'
-                else:
-                    severity = "No Ransomware"
-                    severity_color = 'white'
-
-                # Generate detailed report
-                os.makedirs('reports', exist_ok=True)
-                report_path = 'reports/detection_and-prevention_report.txt'
-                
-                with open(report_path, 'w', encoding='utf-8') as f:
-                    f.write("=== Detailed Ransomware Detection and Prevention Report ===\n\n")
-                    f.write(f"Report Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-                    
-                    f.write("Detection Results:\n")
-                    f.write(f"Severity Level: {severity}\n\n")
-                    
-                    for component, detected in results.items():
-                        f.write(f"{component} Analysis:\n")
-                        f.write(f"Status: {'Ransomware Detected' if detected else 'No Ransomware Detected'}\n")
-                        f.write(f"Result: {'❌ Failed' if detected else '✓ Passed'}\n\n")
-                    
-                    f.write("Suspicious Files:\n")
-                    try:
-                        with open('suspicious_files.txt', 'r', encoding='utf-8') as sf:
-                            suspicious_files = sf.readlines()
-                            if suspicious_files:
-                                for file in suspicious_files:
-                                    f.write(f"- {file.strip()}\n")
-                            else:
-                                f.write("No suspicious files detected\n")
-                    except FileNotFoundError:
-                        f.write("No suspicious files detected\n")
-                    f.write("\n")
-                    
-                    f.write("Prevention Status:\n")
-                    f.write("- Moving Target Defense: Active\n")
-                    f.write("- System Monitoring: Enabled\n")
-                    f.write("- Critical Files: Protected\n\n")
-                    
-                    try:
-                        with open('prevention/mtd_routes.txt', 'r', encoding='utf-8') as routes:
-                            f.write("Recent MTD Actions:\n")
-                            recent_routes = routes.readlines()
-                            if recent_routes:
-                                for route in recent_routes[-5:]:
-                                    route = route.replace('→', '->')
-                                    f.write(f"- {route.strip()}\n")
-                            else:
-                                f.write("No recent MTD actions recorded\n")
-                    except FileNotFoundError:
-                        f.write("No MTD actions recorded\n")
-                    f.write("\n")
-                    
-                    f.write("System Status: ")
-                    if severity == "Severe":
-                        f.write("CRITICAL - Immediate action required\n")
-                    elif severity == "Mild":
-                        f.write("WARNING - Monitor closely\n")
-                    else:
-                        f.write("SECURE - No immediate threats detected\n")
-
-                # Update UI in main thread
-                self.root.after(0, lambda: self.update_detection_ui(results, severity, severity_color))
-            
-            # Run detection in separate thread
-            threading.Thread(target=run_detection, daemon=True).start()
-
-        except Exception as e:
-            self.loading_canvas.pack_forget()
-            self.start_detection_btn.config(state='normal')
-            messagebox.showerror("Error", f"An error occurred: {e}")
-
-    def update_detection_ui(self, results, severity, severity_color):
-        # Hide loading animation
-        self.loading_canvas.pack_forget()
-        self.start_detection_btn.config(state='normal')
-        
-        # Update severity label
-        self.severity_label.config(text=f"Severity Level: {severity}", fg=severity_color)
-        
-        # Clear suspicious files display
-        self.suspicious_files_label.config(text="")  # Clear previous suspicious files
-
-        # Show results popup with severity
-        self.show_detection_results(results, severity, severity_color)
-        
-        # Plot results
-        self.plot_results(results)
-
-    def display_suspicious_files(self):
-        try:
-            results_file_path = 'suspicious_files.txt'
-            if os.path.exists(results_file_path):
-                with open(results_file_path, 'r') as file:
-                    suspicious_files = file.readlines()
-                
-                if suspicious_files:
-                    file_details = "".join([f"{file.strip()}\n" for file in suspicious_files])
-                    recently_detected = "Recently detected files history"
-                    self.recently_detected_label.config(text=recently_detected)
-                    self.suspicious_files_label.config(text=file_details)
-                else:
-                    self.suspicious_files_label.config(text="No suspicious files detected.")
-            else:
-                self.suspicious_files_label.config(text="No suspicious files detected.")
-        except Exception as e:
-            messagebox.showerror("Error", f"An error occurred while reading the suspicious files: {e}")
-
-    def plot_results(self, results):
-        # Create figure and axis with adjusted size
-        fig, ax = plt.subplots(figsize=(8, 4), facecolor=self.frame_bg_color)  # Adjusted size
-        ax.set_facecolor(self.frame_bg_color)
-
-        # Plot data
-        components = list(results.keys())
-        detection_status = [1 if detected else 0 for detected in results.values()]
-        bars = ax.bar(components, detection_status,
-                     color=['red' if status else 'green' for status in detection_status])
-
-        # Customize plot
-        ax.set_xlabel('Detection Components', color=self.label_fg_color)
-        ax.set_ylabel('Ransomware Detected (1) / Not Detected (0)',
-                     color=self.label_fg_color)
-        ax.set_title('Ransomware Detection Results', color=self.label_fg_color)
-        plt.xticks(rotation=45, ha='right', color=self.label_fg_color)
-        plt.yticks(color=self.label_fg_color)
-
-        # Add edge color to bars
-        for bar in bars:
-            bar.set_edgecolor('black')
-        
-        plt.tight_layout(pad=3.0)  # Adjust padding
-
-        # Clear previous widgets in the plot frame to avoid stacking
-        for widget in self.plot_frame.winfo_children():
-            widget.destroy()
-        
-        # Embed plot in Tkinter
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
-        canvas.draw()
-        
-        # Pack the canvas widget
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-    def generate_report(self):
-        # Disable button and show loading
-        self.generate_report_btn.config(state='disabled')
-        self.report_loading_canvas.pack(pady=10)
-        self.create_report_loading_animation()
-        
-        def generate():
-            try:
-                # Create reports directory if it doesn't exist
-                os.makedirs('reports', exist_ok=True)
-                
-                if self.detailed_report.get():
-                    # Use existing detailed report
-                    report_path = 'reports/detection_and-prevention_report.txt'
-                    if not os.path.exists(report_path):
-                        raise FileNotFoundError("Detailed report file not found. Please run a detection first.")
-                else:
-                    # Generate summary report
-                    report_path = 'reports/summary_report.txt'
-                    
-                    with open(report_path, 'w', encoding='utf-8') as f:
-                        f.write("=== Ransomware Detection and Prevention Summary ===\n\n")
-                        
-                        if self.include_timestamps.get():
-                            f.write(f"Report Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-                        
-                        if self.include_detection.get():
-                            f.write("Detection Summary:\n")
-                            f.write("- Last scan completed successfully\n")
-                            
-                            try:
-                                with open('suspicious_files.txt', 'r', encoding='utf-8') as sf:
-                                    suspicious_files = sf.readlines()
-                                    if suspicious_files:
-                                        f.write("\nDetected Suspicious Files:\n")
-                                        for file in suspicious_files:
-                                            f.write(f"- {file.strip()} -> routed to suspicious_mtd\n")
-                                    else:
-                                        f.write("- No suspicious files detected\n")
-                            except FileNotFoundError:
-                                f.write("- No suspicious files detected\n")
-                            f.write("\n")
-                        
-                        if self.include_prevention.get():
-                            f.write("Prevention Summary:\n")
-                            f.write("- Moving Target Defense active\n")
-                            f.write("- Critical files protected\n")
-                            f.write("- System monitoring enabled\n")
-                            
-                            try:
-                                with open('prevention/mtd_routes.txt', 'r', encoding='utf-8') as routes:
-                                    recent_routes = routes.readlines()
-                                    if recent_routes:
-                                        f.write("\nRecent MTD Actions:\n")
-                                        for route in recent_routes[-5:]:
-                                            route = route.replace('→', '->')
-                                            f.write(f"- {route.strip()}\n")
-                            except FileNotFoundError:
-                                pass
-                            f.write("\n")
-                        
-                        f.write("Status: System Protected\n")
-
-                # Show text report
-                self.show_text_report(report_path)
-
-                # Update UI in main thread
-                self.root.after(0, self.report_generation_complete, report_path)
-            
-            except Exception as e:
-                self.root.after(0, self.report_generation_failed, str(e))
-        
-        # Run report generation in separate thread
-        threading.Thread(target=generate, daemon=True).start()
-
-    def report_generation_complete(self, report_path):
-        # Hide loading animation and enable button
-        self.report_loading_canvas.pack_forget()
-        self.generate_report_btn.config(state='normal')
-        
-        # Update status
-        self.report_status_label.config(
-            text="Report Generated Successfully",
-            fg=self.status_fg_color
-        )
-        self.report_file_paths_label.config(
-            text=f"Report saved to: {report_path}",
-            fg=self.label_fg_color
-        )
-        
-        # Show success message
-        messagebox.showinfo(
-            "Success",
-            f"Concise summary report generated successfully!\nLocation: {report_path}"
-        )
-
-    def report_generation_failed(self, error):
-        # Hide loading animation and enable button
-        self.report_loading_canvas.pack_forget()
-        self.generate_report_btn.config(state='normal')
-        
-        # Update status
-        self.report_status_label.config(
-            text="Report Generation Failed",
-            fg=self.error_fg_color
-        )
-        
-        # Show error message
-        messagebox.showerror("Error", f"Failed to generate report: {error}")
-
-    def show_text_report(self, text_path):
-        try:
-            # Verify the text file exists
-            if not os.path.exists(text_path):
-                raise FileNotFoundError(f"Report file not found: {text_path}")
-
-            # Create popup window for text report
-            popup = tk.Toplevel(self.root)
-            popup.title("Report Viewer")
-            popup.geometry("800x600")
-            popup.configure(bg=self.frame_bg_color)
-            
-            # Make the window modal
-            popup.transient(self.root)
-            popup.grab_set()
-            
-            # Center the popup
-            window_width = 800
-            window_height = 600
-            screen_width = popup.winfo_screenwidth()
-            screen_height = popup.winfo_screenheight()
-            x = (screen_width - window_width) // 2
-            y = (screen_height - window_height) // 2
-            popup.geometry(f"{window_width}x{window_height}+{x}+{y}")
-            
-            # Create main container with padding
-            container = tk.Frame(popup, bg=self.frame_bg_color)
-            container.pack(fill='both', expand=True, padx=20, pady=20)
-            
-            # Add title
-            title = tk.Label(
-                container,
-                text="Ransomware Detection and Prevention Report",
-                font=('Helvetica', 16, 'bold'),
-                bg=self.frame_bg_color,
-                fg='white'
-            )
-            title.pack(pady=(0, 20))
-            
-            # Create text widget with scrollbar
-            text_frame = tk.Frame(container, bg=self.frame_bg_color)
-            text_frame.pack(fill='both', expand=True)
-            
-            scrollbar = tk.Scrollbar(text_frame)
-            scrollbar.pack(side='right', fill='y')
-            
-            text_widget = tk.Text(
-                text_frame,
-                wrap=tk.WORD,
-                bg=self.frame_bg_color,
-                fg='white',
-                font=('Helvetica', 12),
-                padx=10,
-                pady=10,
-                yscrollcommand=scrollbar.set
-            )
-            text_widget.pack(side='left', fill='both', expand=True)
-            
-            scrollbar.config(command=text_widget.yview)
-            
-            # Read and display the report
-            with open(text_path, 'r', encoding='utf-8') as f:
-                text_widget.insert('1.0', f.read())
-            
-            text_widget.config(state='disabled')  # Make read-only
-            
-            # Button frame
-            button_frame = tk.Frame(container, bg=self.frame_bg_color)
-            button_frame.pack(pady=(20, 0))
-            
-            # Save as PDF button
-            save_pdf_button = tk.Button(
-                button_frame,
-                text="Save as PDF",
-                command=lambda: self.save_as_pdf(text_path),
-                bg='#ff3333',  # Red background
-                fg='white',
-                font=('Helvetica', 12, 'bold'),
-                relief=tk.FLAT,
-                borderwidth=0,
-                width=15,
-                height=2,
-                cursor="hand2"
-            )
-            save_pdf_button.pack(side='left', padx=5)
-
-            # Close button
-            close_button = tk.Button(
-                button_frame,
-                text="Close",
-                command=popup.destroy,
-                bg=self.button_color,
-                fg='white',
-                font=('Helvetica', 12, 'bold'),
-                relief=tk.FLAT,
-                borderwidth=0,
-                width=15,
-                height=2,
-                cursor="hand2"
-            )
-            close_button.pack(side='left', padx=5)
-            
-            # Bind hover events for buttons
-            save_pdf_button.bind('<Enter>', lambda e: e.widget.config(bg='#cc0000'))
-            save_pdf_button.bind('<Leave>', lambda e: e.widget.config(bg='#ff3333'))
-            close_button.bind('<Enter>', lambda e: e.widget.config(bg='#0066CC'))
-            close_button.bind('<Leave>', lambda e: e.widget.config(bg=self.button_color))
-
-        except Exception as e:
-            messagebox.showerror("Error", f"Could not display report: {str(e)}")
-            popup.destroy() if 'popup' in locals() else None
-
-    def save_as_pdf(self, text_path):
-        try:
-            # Specify the directory to save the PDF
-            pdf_directory = r"C:\Users\sawan\Downloads"
-            pdf_path = os.path.join(pdf_directory, os.path.basename(text_path).replace('.txt', '.pdf'))
-            
-            from reportlab.lib import colors
-            from reportlab.lib.pagesizes import letter
-            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-            from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-            from reportlab.pdfbase import pdfmetrics
-            from reportlab.pdfbase.ttfonts import TTFont
-            
-            # Register a Unicode font
-            try:
-                pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
-                font_name = 'DejaVuSans'
-            except:
-                font_name = 'Helvetica'
-            
-            doc = SimpleDocTemplate(pdf_path, pagesize=letter)
-            styles = getSampleStyleSheet()
-            
-            # Create custom styles with Unicode font
-            title_style = ParagraphStyle(
-                'CustomTitle',
-                parent=styles['Heading1'],
-                fontSize=24,
-                spaceAfter=30,
-                textColor=colors.HexColor('#0056A0'),
-                fontName=font_name
-            )
-            
-            heading_style = ParagraphStyle(
-                'CustomHeading',
-                parent=styles['Heading2'],
-                fontSize=18,
-                spaceAfter=12,
-                textColor=colors.HexColor('#333333'),
-                fontName=font_name
-            )
-            
-            normal_style = ParagraphStyle(
-                'CustomNormal',
-                parent=styles['Normal'],
-                fontSize=12,
-                spaceAfter=8,
-                textColor=colors.HexColor('#000000'),
-                fontName=font_name
-            )
-            
-            # Read text content and convert to PDF elements
-            with open(text_path, 'r', encoding='utf-8') as f:
-                content = f.read().split('\n')
-            
-            elements = []
-            
-            # Process each line and apply appropriate styling
-            for line in content:
-                if line.startswith('==='):
-                    elements.append(Paragraph(line.strip('=').strip(), title_style))
-                elif line.endswith(':'):
-                    elements.append(Paragraph(line, heading_style))
-                elif line.strip():
-                    # Replace any remaining special characters
-                    line = line.replace('→', '->')
-                    elements.append(Paragraph(line, normal_style))
-                else:
-                    elements.append(Spacer(1, 12))
-            
-            # Generate PDF
-            doc.build(elements)
-            
-            # Open the PDF file with the default viewer
-            subprocess.Popen([pdf_path], shell=True)
-
-            messagebox.showinfo(
-                "Success",
-                f"PDF saved successfully!\nLocation: {pdf_path}"
-            )
-            
-        except ImportError:
-            messagebox.showerror(
-                "Error",
-                "ReportLab not installed. Please install it using:\npip install reportlab"
-            )
-        except Exception as e:
-            messagebox.showerror(
-                "Error",
-                f"Could not generate PDF: {str(e)}"
-            )
+        report_tab = ReportTab()  # Create ReportTab instance
+        layout = QVBoxLayout(self.report_tab)
+        layout.addWidget(report_tab)
 
     def setup_exit_tab(self):
-        # Create container frame with padding
-        container = tk.Frame(
-            self.exit_frame,
-            bg=self.frame_bg_color,
-            padx=30,
-            pady=20
-        )
-        container.pack(fill='both', expand=True)
+        # Exit tab implementation
+        layout = QVBoxLayout(self.exit_tab)
+        
+        warning_label = QLabel("Are you sure you want to exit?")
+        warning_label.setFont(QFont('Helvetica', 18, QFont.Bold))
+        warning_label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(warning_label)
 
-        # Warning Label
-        warning_label = tk.Label(
-            container,
-            text="Are you sure you want to exit?",
-            font=('Helvetica', 18, 'bold'),
-            bg=self.frame_bg_color,
-            fg='#e0e0e0',
-            wraplength=800,
-            justify="center"
-        )
-        warning_label.pack(pady=(100, 40))
+        exit_btn = QPushButton("Exit Application")
+        exit_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #ff3333;
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                font: bold 16px 'Helvetica';
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #cc0000;
+            }
+        """)
+        exit_btn.clicked.connect(self.close)
+        layout.addWidget(exit_btn, alignment=Qt.AlignCenter)
 
-        # Button frame
-        button_frame = tk.Frame(container, bg=self.frame_bg_color)
-        button_frame.pack(pady=20)
+    # Add a method to run detection from periodic scan
+    def run_detection(self):
+        # Don't switch tab - just run detection in background
+        
+        # Run detection and collect results
+        detection_tab = self.detection_tab.findChild(DetectionTab)
+        results = {}
+        severity = ("Normal", "#4CAF50")  # Default values
+        detected_files = []
+        
+        if detection_tab:
+            # Just run the detection
+            detection_tab.start_actual_detection()
+            
+        # Return results for periodic scanning
+        return {
+            'threat_level': severity[0] if isinstance(severity, tuple) else "Normal",
+            'severity_color': severity[1] if isinstance(severity, tuple) else "#4CAF50",
+            'detected_files': detected_files
+        }
 
-        # Exit Button
-        self.exit_button = tk.Button(
-            button_frame,
-            text="Exit Application",
-            command=self.exit_app,
-            bg='#ff3333',
-            fg='white',
-            font=('Helvetica', 16, 'bold'),
-            relief=tk.FLAT,
-            borderwidth=0,
-            width=20,
-            height=2,
-            cursor="hand2"
-        )
-        self.exit_button.pack(pady=20)
+    def _handle_detection_results(self, detection_results, severity, results_dict, loop):
+        # Store results
+        results_dict['results'] = detection_results
+        results_dict['severity'] = severity
+        
+        # Exit loop
+        loop.quit()
+        
+    def _handle_detection_error(self, error, loop):
+        print(f"Detection error: {error}")
+        loop.quit()
 
-        # Bind hover events
-        self.exit_button.bind('<Enter>', lambda e: e.widget.config(bg='#cc0000'))
-        self.exit_button.bind('<Leave>', lambda e: e.widget.config(bg='#ff3333'))
+    # Add a method to handle logout
+    def handle_logout(self):
+        """Handle logout request from exit tab"""
+        # Clear any stored credentials
+        try:
+            auth_file = os.path.join(os.path.expanduser("~"), ".ransomware_app", "auth_token.json")
+            if os.path.exists(auth_file):
+                os.remove(auth_file)
+        except:
+            pass
+        
+        # Show login window again
+        from components.login import LoginWindow
+        self.login_window = LoginWindow()
+        self.login_window.login_successful.connect(self.on_login_success)
+        self.login_window.show()
+        
+        # Close main window
+        self.close()
 
-    def exit_app(self):
-        self.root.quit()
-
-def send_email_with_attachment(to_email, subject, body, attachment_path):
-    try:
-        smtp_server = 'smtp.freesmtpservers.com'  # Use Gmail's SMTP server
-        smtp_port = 25  # Use port 587 for TLS
-        sender_email = 'codewithvacky@gmail.com'  # Your email
-        sender_password = 'vackyhub@321'  # Use App Password if 2FA is enabled
-
-        msg = MIMEMultipart()
-        msg['From'] = sender_email
-        msg['To'] = to_email
-        msg['Subject'] = subject
-
-        msg.attach(MIMEText(body, 'plain'))
-
-        with open(attachment_path, 'rb') as attachment:
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload(attachment.read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(attachment_path)}')
-            msg.attach(part)
-
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()  # Secure the connection
-            server.login(sender_email, sender_password)  # Log in to your email account
-            server.send_message(msg)  # Send the email
-
-        messagebox.showinfo("Success", "Email sent successfully!")
-
-    except Exception as e:
-        messagebox.showerror("Error", f"Failed to send email: {e}")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = RansomwareApp(root)
-    root.mainloop()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = RansomwareApp()
+    window.show()
+    sys.exit(app.exec_())

@@ -1,1 +1,3 @@
-Suspicious file found: test_data/sanika.locked (Extension: .locked)
+Suspicious file found: test_data/test1.locked (Extension: .locked)
+Encrypted file detected: test_data/test1.locked
+Recently modified file: test_data/test1.locked

@@ -23,8 +23,8 @@ class SplashScreen:
         
         self.root.geometry(f'{splash_width}x{splash_height}+{x}+{y}')
         
-        # Create main frame with dark theme
-        self.frame = tk.Frame(self.root, bg='#1c1c1c')
+        # Create main frame with light theme
+        self.frame = tk.Frame(self.root, bg='#ffffff')
         self.frame.place(relwidth=1, relheight=1)
         
         # Load and resize logo/background
@@ -36,20 +36,20 @@ class SplashScreen:
             self.bg_label.place(relwidth=1, relheight=1)
         except:
             # Fallback if image not found
-            self.frame.configure(bg='#1c1c1c')
+            self.frame.configure(bg='#ffffff')
 
         # Create semi-transparent overlay
-        self.overlay = tk.Frame(self.frame, bg='#1c1c1c')
+        self.overlay = tk.Frame(self.frame, bg='#ffffff')
         self.overlay.place(relwidth=1, relheight=1)
-        self.overlay.configure(bg='#1c1c1c')
+        self.overlay.configure(bg='#ffffff')
         
         # Welcome text with modern font
         self.title = tk.Label(
             self.overlay,
             text="Ransomware Detection & Prevention",
             font=('Helvetica', 24, 'bold'),
-            fg='white',
-            bg='#1c1c1c'
+            fg='#333333',
+            bg='#ffffff'
         )
         self.title.place(relx=0.5, rely=0.3, anchor='center')
         
@@ -58,8 +58,8 @@ class SplashScreen:
             self.overlay,
             text="Powered by Moving Target Defense",
             font=('Helvetica', 12),
-            fg='#0056A0',
-            bg='#1c1c1c'
+            fg='#1976D2',
+            bg='#ffffff'
         )
         self.subtitle.place(relx=0.5, rely=0.4, anchor='center')
         
@@ -68,8 +68,8 @@ class SplashScreen:
         style.theme_use('default')
         style.configure(
             "Custom.Horizontal.TProgressbar",
-            troughcolor='#1c1c1c',
-            background='#0056A0',
+            troughcolor='#f0f0f0',
+            background='#1976D2',
             thickness=4
         )
         
@@ -88,7 +88,7 @@ class SplashScreen:
             text="Initializing...",
             font=('Helvetica', 10),
             fg='#888888',
-            bg='#1c1c1c'
+            bg='#ffffff'
         )
         self.status.place(relx=0.5, rely=0.7, anchor='center')
         
@@ -116,9 +116,17 @@ class SplashScreen:
             self.root.after(500, self.launch_main_app)
 
     def launch_main_app(self):
+        root = tk.Tk()  # Create new root window
+        root.withdraw()  # Hide it initially
+        
+        # Destroy splash screen
         self.root.destroy()
-        root = tk.Tk()
-        app = RansomwareApp(root)
+        
+        # Create and show role selection window
+        from components.welcome_page import WelcomePage
+        welcome = WelcomePage(root)
+        
+        # Start main event loop
         root.mainloop()
 
 if __name__ == "__main__":

@@ -1,0 +1,13 @@
+test_data\test4.locked -> safe_mtd\quarantined_1743252783_test4.locked @ 2025-03-29 18:23:03
+test_data\test1.locked -> safe_mtd\quarantined_1743252914_test1.locked @ 2025-03-29 18:25:14
+suspicious_mtd\test1.locked -> safe_mtd\test1_20250329_183640_1785.locked @ 2025-03-29 18:36:40
+suspicious_mtd\test1.locked -> safe_mtd\test1_20250329_183755_3257.locked @ 2025-03-29 18:37:55
+suspicious_mtd\test1.locked -> safe_mtd\quarantined_20250329_184514_test1.locked @ 2025-03-29 18:45:14
+suspicious_mtd\test1.locked -> safe_mtd\quarantined_20250329_203905_test1.locked @ 2025-03-29 20:39:05
+suspicious_mtd\test1.locked -> safe_mtd\quarantined_20250329_225249_test1.locked @ 2025-03-29 22:52:49
+suspicious_mtd\test2.encrypt -> safe_mtd\quarantined_20250329_230858_test2.encrypt @ 2025-03-29 23:08:58
+test_data\test5.locked -> safe_mtd\quarantined_1743444877_test5.locked @ 2025-03-31 23:44:37
+suspicious_mtd\test6.locked -> safe_mtd\quarantined_20250401_014827_test6.locked @ 2025-04-01 01:48:27
+suspicious_mtd\testfile.locked -> safe_mtd\quarantined_20250401_132730_testfile.locked @ 2025-04-01 13:27:30
+suspicious_mtd\sanu.locked -> safe_mtd\quarantined_20250403_213133_sanu.locked @ 2025-04-03 21:31:33
+suspicious_mtd\test1.locked -> safe_mtd\quarantined_20250404_144409_test1.locked @ 2025-04-04 14:44:09
